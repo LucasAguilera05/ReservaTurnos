@@ -1,42 +1,41 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const cors = require('cors');
+const sequelize = require('./config/dataBase');
+require('dotenv').config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var medicoRouter = require('./routes/medico');
+// Importar rutas
+const usuariosRoutes = require('./routes/usuariosRoutes');
+const pacientesRoutes = require('./routes/pacientesRoutes');
+const doctoresRoutes = require('./routes/doctoresRoutes');
+const citasRoutes = require('./routes/citasRoutes');
 
-var app = express();
+// Inicializar la app
+const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-app.use(logger('dev'));
+// Middlewares
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// Rutas
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/pacientes', pacientesRoutes);
+app.use('/api/doctores', doctoresRoutes);
+app.use('/api/citas', citasRoutes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.send('Sistema funcionando correctamente');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// Conexión a la base de datos y levantamiento del servidor
+const PORT = process.env.PORT || 3000;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+sequelize.sync({ force: false }).then(() => {
+  console.log('Base de datos sincronizada');
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+  });
+}).catch((error) => {
+  console.error('Error al sincronizar la base de datos:', error);
 });
-
-module.exports = app;
