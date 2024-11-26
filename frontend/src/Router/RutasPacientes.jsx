@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Perfil from "../pages/pacientes/Perfil";
-// import Historial from "../pages/pacientes/Historial";
-// import SolicitarTurno from "../pages/pacientes/SolicitarTurno";
+import SolicitarTurno from "../pages/pacientes/SolicitarTurno";
 import Sidebar from "../components/Sidebar";
 import NavBarSmall from "../components/NavBarSmall";
 import Header from "../components/Header";
 import Error404 from "../pages/error404/Error404";
 import useAuth from "../stores/Auth-Store";
+import Historial from "../pages/pacientes/Historial";
 
 const RutasPacientes = () => {
   const { user } = useAuth();
@@ -51,8 +51,8 @@ const RutasPacientes = () => {
         <Routes>
           <Route path="/" element={<Perfil />} />
           <Route path="perfil" element={<Perfil />} />
-          {/* <Route path="historial" element={<Historial />} /> */}
-          {/* <Route path="solicitarTurno" element={<SolicitarTurno />} /> */}
+          <Route path="historial" element={<Historial />} />
+          <Route path="solicitarTurno" element={<SolicitarTurno />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>

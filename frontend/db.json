@@ -263,25 +263,84 @@
   ],
   "turnos": [
     {
-      "id": "2c07",
-      "fecha": "251124",
-      "horario": "1800",
-      "medicoId": "3",
-      "pacienteId": "Ninguno"
-    },
-    {
-      "fecha": "251124",
-      "horario": "1900",
+      "fecha": "2024-11-27",
+      "horario": "0900",
       "medicoId": "3",
       "pacienteId": "Ninguno",
-      "id": "db57"
+      "estado": "Ninguno",
+      "id": "3226"
     },
     {
-      "fecha": "251124",
-      "horario": "2000",
+      "id": "cd1d",
+      "fecha": "2024-11-14",
+      "horario": "0800",
       "medicoId": "3",
       "pacienteId": "Ninguno",
-      "id": "6511"
+      "estado": "Ninguno"
+    },
+    {
+      "fecha": "2024-11-01",
+      "horario": "0800",
+      "medicoId": "3",
+      "medicoNombre": "Andrés Santamarina",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Confirmado",
+      "id": "33bb"
+    },
+    {
+      "fecha": "2024-12-04",
+      "horario": "1100",
+      "medicoId": "3",
+      "medicoNombre": "Andrés Santamarina",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Confirmado",
+      "id": "da28"
+    },
+    {
+      "fecha": "2024-12-03",
+      "horario": "0900",
+      "medicoId": "9",
+      "pacienteId": "1",
+      "estado": "Confirmado",
+      "id": "de24"
+    },
+    {
+      "id": "927c",
+      "fecha": "2024-12-06",
+      "horario": "1000",
+      "medicoId": "9",
+      "pacienteId": "Ninguno",
+      "estado": "Ninguno"
+    },
+    {
+      "id": "bb86",
+      "fecha": "2024-11-29",
+      "horario": "1000",
+      "medicoId": "9",
+      "pacienteId": "Ninguno",
+      "estado": "Ninguno"
+    },
+    {
+      "fecha": "2024-12-05",
+      "horario": "1100",
+      "medicoId": "3",
+      "medicoNombre": "Andrés Santamarina",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Finalizado",
+      "id": "b385"
+    },
+    {
+      "id": "e3cc",
+      "fecha": "2024-12-04",
+      "horario": "0900",
+      "medicoId": "3",
+      "medicoNombre": "Andrés Santamarina",
+      "pacienteId": "Ninguno",
+      "pacienteNombre": "Ninguno",
+      "estado": "Ninguno"
     }
   ]
 }

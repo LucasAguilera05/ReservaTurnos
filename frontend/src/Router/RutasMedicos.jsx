@@ -1,8 +1,9 @@
 import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import PerfilMedico from "../pages/medicos/PerfilMedico";
-import ListadoPacientes from "../pages/medicos/ListadoPacientes";
-// import ProgramarTurno from "../pages/medicos/ProgramarTurno";
+// import ListadoPacientes from "../pages/medicos/ListadoPacientes";
+import Turnos from "../pages/medicos/Turnos";
+import ListadoUsuarios from "../pages/medicos/ListadoUsuarios";
 import Sidebar from "../components/Sidebar";
 import NavBarSmall from "../components/NavBarSmall";
 import Header from "../components/Header";
@@ -51,8 +52,8 @@ const RutasMedicos = () => {
         <Routes>
           <Route path="/" element={<PerfilMedico />} />
           <Route path="perfil" element={<PerfilMedico />} />
-          {/* <Route path="programarTurno" element={<ProgramarTurno />} /> */}
-          {/* <Route path="pacientes" element={<ListadoPacientes />} /> */}
+          <Route path="programarTurno" element={<Turnos />} />
+          <Route path="pacientes" element={<ListadoUsuarios />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
