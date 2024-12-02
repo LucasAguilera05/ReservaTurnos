@@ -31,7 +31,10 @@ const Cancelar = ({ turno }) => {
     fecha: Yup.string().required("La fecha es obligatorio"),
     horario: Yup.string().required("El horario es obligatorio"),
     medicoId: Yup.string().required("La división es obligatoria"),
+    medicoNombre: Yup.string().required("La división es obligatoria"),
+    medicoTipo: Yup.string().required("La división es obligatoria"),
     pacienteId: Yup.string().required("La división es obligatoria"),
+    pacienteNombre: Yup.string().required("La división es obligatoria"),
     estado: Yup.string().required("La división es obligatoria"),
   });
 
@@ -39,13 +42,17 @@ const Cancelar = ({ turno }) => {
     fecha: turno.fecha,
     horario: turno.horario,
     medicoId: turno.medicoId,
+    medicoNombre: turno.medicoNombre,
+    medicoTipo: turno.medicoTipo,
     pacienteId: turno.pacienteId,
+    pacienteNombre: turno.pacienteNombre,
   };
 
   const handleSubmit = async (values) => {
     const turnoEditado = {
       ...turno,
       pacienteId: "Ninguno",
+      pacienteNombre: "Ninguno",
       estado: "Ninguno",
     };
 
@@ -82,7 +89,7 @@ const Cancelar = ({ turno }) => {
 
       <Modal show={show} onHide={handleClose} dialogClassName="modal-md">
         <Modal.Header closeButton>
-          <Modal.Title>Confirmar Turno</Modal.Title>
+          <Modal.Title>Confirmar Cancelación de Turno</Modal.Title>
         </Modal.Header>
 
         <Formik
@@ -105,7 +112,7 @@ const Cancelar = ({ turno }) => {
                 >
                   <option value="">Seleccione un estado</option>
                   <option value="Ninguno">Ninguno</option>
-                  <option value="Ninguno">Cancelar</option>
+                  <option value="Cancelar">Cancelar</option>
                 </Field>
                 <ErrorMessage
                   name="estado"

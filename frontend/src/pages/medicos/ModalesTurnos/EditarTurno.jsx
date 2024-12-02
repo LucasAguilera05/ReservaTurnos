@@ -17,7 +17,10 @@ const EditarTurno = ({ turno }) => {
     fecha: Yup.string().required("La fecha es obligatorio"),
     horario: Yup.string().required("El horario es obligatorio"),
     medicoId: Yup.string().required("La división es obligatoria"),
+    medicoNombre: Yup.string().required("La división es obligatoria"),
+    medicoTipo: Yup.string().required("La división es obligatoria"),
     pacienteId: Yup.string().required("La división es obligatoria"),
+    pacienteNombre: Yup.string().required("La división es obligatoria"),
     estado: Yup.string().required("La división es obligatoria"),
   });
 
@@ -26,6 +29,7 @@ const EditarTurno = ({ turno }) => {
     horario: turno.horario || "",
     medicoId: turno.medicoId || "",
     medicoNombre: turno.medicoNombre || "",
+    medicoTipo: turno.medicoTipo || "",
     pacienteId: turno.pacienteId || "Ninguno",
     pacienteNombre: turno.pacienteNombre || "Ninguno",
     estado: turno.estado || "Ninguno",

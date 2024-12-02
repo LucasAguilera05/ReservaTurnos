@@ -50,7 +50,7 @@ const ModalSolicitar = ({ usuario }) => {
             </tr>
           </thead>
           <tbody>
-            {turnos.map((turno) => {
+            { turnos.map((turno) => {
                 if(turno.medicoId === usuario.id && turno.estado === "Ninguno")              
               return (
                 <tr key={turno.id}>

@@ -48,11 +48,6 @@ const Perfil = () => {
           <h6 className="me-1 my-0 fw-bold">Número de Celular</h6>
           <span>{usuario?.telefono}</span>
         </div>
-        <hr className="my-1 mx-2" />
-        <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
-          <h6 className="me-1 my-0 fw-bold">Número de Celular Padres</h6>
-          <span>3816097754 - 381524625</span>
-        </div>
       </article>
     </Container>
   );

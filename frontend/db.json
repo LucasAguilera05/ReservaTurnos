@@ -263,84 +263,92 @@
   ],
   "turnos": [
     {
-      "fecha": "2024-11-27",
-      "horario": "0900",
-      "medicoId": "3",
-      "pacienteId": "Ninguno",
-      "estado": "Ninguno",
-      "id": "3226"
-    },
-    {
-      "id": "cd1d",
-      "fecha": "2024-11-14",
-      "horario": "0800",
-      "medicoId": "3",
-      "pacienteId": "Ninguno",
-      "estado": "Ninguno"
-    },
-    {
-      "fecha": "2024-11-01",
+      "id": "2cfe",
+      "fecha": "2024-12-10",
       "horario": "0800",
       "medicoId": "3",
       "medicoNombre": "Andrés Santamarina",
+      "medicoTipo": "Odontología",
       "pacienteId": "1",
       "pacienteNombre": "Joaquin Fuentes",
-      "estado": "Confirmado",
-      "id": "33bb"
+      "estado": "Confirmado"
     },
     {
-      "fecha": "2024-12-04",
-      "horario": "1100",
-      "medicoId": "3",
-      "medicoNombre": "Andrés Santamarina",
-      "pacienteId": "1",
-      "pacienteNombre": "Joaquin Fuentes",
-      "estado": "Confirmado",
-      "id": "da28"
-    },
-    {
-      "fecha": "2024-12-03",
-      "horario": "0900",
-      "medicoId": "9",
-      "pacienteId": "1",
-      "estado": "Confirmado",
-      "id": "de24"
-    },
-    {
-      "id": "927c",
       "fecha": "2024-12-06",
-      "horario": "1000",
-      "medicoId": "9",
-      "pacienteId": "Ninguno",
-      "estado": "Ninguno"
-    },
-    {
-      "id": "bb86",
-      "fecha": "2024-11-29",
-      "horario": "1000",
-      "medicoId": "9",
-      "pacienteId": "Ninguno",
-      "estado": "Ninguno"
-    },
-    {
-      "fecha": "2024-12-05",
-      "horario": "1100",
+      "horario": "0800",
       "medicoId": "3",
       "medicoNombre": "Andrés Santamarina",
+      "medicoTipo": "Odontología",
       "pacienteId": "1",
       "pacienteNombre": "Joaquin Fuentes",
       "estado": "Finalizado",
-      "id": "b385"
+      "id": "275e"
     },
     {
-      "id": "e3cc",
-      "fecha": "2024-12-04",
-      "horario": "0900",
+      "id": "444b",
+      "fecha": "2024-12-05",
+      "horario": "1000",
       "medicoId": "3",
       "medicoNombre": "Andrés Santamarina",
+      "medicoTipo": "Odontología",
       "pacienteId": "Ninguno",
       "pacienteNombre": "Ninguno",
       "estado": "Ninguno"
+    },
+    {
+      "id": "fa60",
+      "fecha": "2024-12-11",
+      "horario": "0800",
+      "medicoId": "9",
+      "medicoNombre": "Carlos García",
+      "medicoTipo": "Pediatria",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Confirmado"
+    },
+    {
+      "id": "1ddf",
+      "fecha": "2024-12-20",
+      "horario": "0800",
+      "medicoId": "9",
+      "medicoNombre": "Carlos García",
+      "medicoTipo": "Pediatria",
+      "pacienteId": "Ninguno",
+      "pacienteNombre": "Ninguno",
+      "estado": "Ninguno"
+    },
+    {
+      "id": "db82",
+      "fecha": "2024-12-12",
+      "horario": "0900",
+      "medicoId": "19",
+      "medicoNombre": "Pablo Rodríguez",
+      "medicoTipo": "Dermatologia",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Confirmado"
+    },
+    {
+      "id": "5ed2",
+      "fecha": "2024-12-11",
+      "horario": "0900",
+      "medicoId": "19",
+      "medicoNombre": "Pablo Rodríguez",
+      "medicoTipo": "Dermatologia",
+      "pacienteId": "Ninguno",
+      "pacienteNombre": "Ninguno",
+      "estado": "Ninguno"
+    },
+    {
+      "fecha": "2024-12-02",
+      "horario": "1000",
+      "medicoId": "3",
+      "medicoNombre": "Andrés Santamarina",
+      "medicoTipo": "Odontología",
+      "pacienteId": "1",
+      "pacienteNombre": "Joaquin Fuentes",
+      "estado": "Confirmado",
+      "id": "8bc1"
     }
   ]
 }

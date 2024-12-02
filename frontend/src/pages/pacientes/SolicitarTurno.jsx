@@ -144,7 +144,7 @@ const solicitarTurno = () => {
           {usuariosActuales.length === 0 ? (
             <tr>
               <td colSpan="6" className="text-center">
-                No hay usuarios para mostrar
+                Debe seleccionar una especialidad.
               </td>
             </tr>
           ) : (
@@ -199,7 +199,8 @@ const solicitarTurno = () => {
               <th className="tableMaterias fw-bold">Fecha</th>
               <th className="tableMaterias fw-bold">Horario</th>
               <th className="tableMaterias fw-bold">Estado</th>
-              <th className="tableMaterias fw-bold">Especialista</th>
+              <th className="tableMaterias fw-bold">Especialidad</th>              
+              <th className="tableMaterias fw-bold">Medico</th>
               <th className="tableMaterias fw-bold">Acciones</th>
             </tr>
           </thead>
@@ -211,6 +212,7 @@ const solicitarTurno = () => {
                   <td className="tableMaterias">{turno.fecha}</td>
                   <td className="tableMaterias">{turno.horario}</td>
                   <td className="tableMaterias">{turno.estado}</td>
+                  <td className="tableMaterias">{turno.medicoTipo}</td>
                   <td className="tableMaterias">{turno.medicoNombre}</td>
 
                   <td className="tableMaterias ">

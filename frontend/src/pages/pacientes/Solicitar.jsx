@@ -30,7 +30,10 @@ const Solicitar = ({ turno }) => {
     fecha: Yup.string().required("La fecha es obligatorio"),
     horario: Yup.string().required("El horario es obligatorio"),
     medicoId: Yup.string().required("La división es obligatoria"),
+    medicoNombre: Yup.string().required("La división es obligatoria"),
+    medicoTipo: Yup.string().required("La división es obligatoria"),
     pacienteId: Yup.string().required("La división es obligatoria"),
+    pacienteNombre: Yup.string().required("La división es obligatoria"),
     estado: Yup.string().required("La división es obligatoria"),
   });
 
@@ -39,6 +42,7 @@ const Solicitar = ({ turno }) => {
     horario: turno.horario,
     medicoId: turno.medicoId,
     medicoNombre: turno.medicoNombre,
+    medicoTipo: turno.medicoTipo,
     pacienteId: turno.pacienteId,
     pacienteNombre: turno.pacienteNombre,
   };
@@ -56,10 +60,10 @@ const Solicitar = ({ turno }) => {
       handleClose(); 
 
       Swal.fire({
-        title: "Turno actualizado",
+        title: "Turno solicitado",
         text: "El turno se ha confirmado con éxito.",
         icon: "success",
-        timer: 1000,
+        timer: 1500,
         showConfirmButton: false,
       });
     } catch (error) {
