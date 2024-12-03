@@ -8,3 +8,7 @@
 "VITE_API_TURNO = http://localhost:3000/turnos"
 5- Ejecutar "npx json-server db.json"
 6- Ya podrá usar el proyecto.
+
+7- Para usar el backend pegar en ".env" lo siguiente:
+"VITE_API_USUARIO = http://localhost:3000/api/usuarios"
+"VITE_API_TURNO = http://localhost:3000/api/turnos"
