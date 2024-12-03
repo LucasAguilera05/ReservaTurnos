@@ -15,19 +15,34 @@ exports.crearTurno = async (req, res) => {
 };
 
 // Obtener todas las citas
+// exports.obtenerTurnos = async (req, res) => {
+//   try {
+//     const turnos = await Turno.findAll({
+//       include: [
+//         { model: Paciente, as: 'Paciente', attributes: ['nombre', 'apellido'] },
+//         { model: Doctor, as: 'Medico', attributes: ['nombre', 'especialidad'] },
+//       ],
+//     });
+//     res.status(200).json(turnos);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Error al obtener turnos' });
+//   }
+// };
+
+// Obtener todos los turnos (sin información de paciente y médico)
 exports.obtenerTurnos = async (req, res) => {
   try {
-    const turnos = await Turno.findAll({
-      include: [
-        { model: Paciente, as: 'Paciente', attributes: ['nombre', 'apellido'] },
-        { model: Doctor, as: 'Medico', attributes: ['nombre', 'especialidad'] },
-      ],
-    });
+    // Obtenemos todos los turnos de la base de datos sin incluir los modelos relacionados
+    const turnos = await Turno.findAll();
+
+    // Enviamos la respuesta con los turnos obtenidos
     res.status(200).json(turnos);
   } catch (error) {
+    console.error('Error al obtener turnos:', error);
     res.status(500).json({ error: 'Error al obtener turnos' });
   }
 };
+
 
 // Actualizar una cita
 exports.actualizarTurno = async (req, res) => {

@@ -12,26 +12,32 @@ const useAuth = create((set) => ({
     set({ loading: true, error: null });
     try {
       const { email, password } = data;
-      const resp = await axios.get(`${URL_USUARIO}`, {
-        params: {
-          email,
-          password,
-        },
+
+      // Cambiar a POST para el inicio de sesión
+      const resp = await axios.post(`${URL_USUARIO}/login`, {
+        email,
+        password,
       });
 
-      if (resp.data.length === 0) {
-        throw new Error("Credenciales incorrectas");
-      }
+      // Manejar la respuesta adecuada
+      const { usuario, token } = resp.data;
 
-      const user = resp.data[0];
+      // Guardar el usuario y el token en el estado
       set({
-        user,
+        user: usuario,
         loading: false,
       });
-      sessionStorage.setItem("usuario", JSON.stringify(user));
-      return user;
+
+      // Almacenar el usuario y token en sessionStorage
+      sessionStorage.setItem("usuario", JSON.stringify(usuario));
+      sessionStorage.setItem("token", token);
+
+      return usuario;
     } catch (error) {
-      set({ error: error.message, loading: false });
+      set({
+        error: error.response?.data?.error || error.message,
+        loading: false,
+      });
       throw error;
     }
   },
@@ -45,7 +51,7 @@ const useAuth = create((set) => ({
     const user = JSON.parse(sessionStorage.getItem("usuario"));
     set({ user });
     return user;
-  }
+  },
 }));
 
 export default useAuth;

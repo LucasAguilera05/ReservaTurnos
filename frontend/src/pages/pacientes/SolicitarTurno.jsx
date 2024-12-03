@@ -206,7 +206,7 @@ const solicitarTurno = () => {
           </thead>
           <tbody>
             {turnos.map((turno) => {
-              if(turno.pacienteId === user?.id && turno.estado === "Confirmado") {
+              if(turno.pacienteId == user?.id && turno.estado === "Confirmado") {
               return (
                 <tr key={turno.id}>
                   <td className="tableMaterias">{turno.fecha}</td>

@@ -3,11 +3,11 @@ const sequelize = require('../config/dataBase');
 
 const Turno = sequelize.define('Turno', {
   fecha: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   horario: {
-    type: DataTypes.TIME,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   medicoId: {

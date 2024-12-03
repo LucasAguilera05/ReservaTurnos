@@ -38,6 +38,27 @@ exports.registrarUsuario = async (req, res) => {
 };
 
 // Iniciar sesión
+// exports.iniciarSesion = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     // Buscar al usuario por email
+//     const usuario = await Usuario.findOne({ where: { email } });
+//     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+//     // Verificar la contraseña
+//     const esValida = await bcrypt.compare(password, usuario.password);
+//     if (!esValida) return res.status(401).json({ error: 'Contraseña incorrecta' });
+
+//     // Generar token JWT
+//     const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, secret, { expiresIn });
+//     res.status(200).json({ token, usuario });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Error al iniciar sesión' });
+//   }
+// };
+
+// Iniciar sesión
 exports.iniciarSesion = async (req, res) => {
   const { email, password } = req.body;
 
@@ -46,9 +67,10 @@ exports.iniciarSesion = async (req, res) => {
     const usuario = await Usuario.findOne({ where: { email } });
     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-    // Verificar la contraseña
-    const esValida = await bcrypt.compare(password, usuario.password);
-    if (!esValida) return res.status(401).json({ error: 'Contraseña incorrecta' });
+    // Verificar si la contraseña proporcionada coincide con la almacenada
+    if (password !== usuario.password) {
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
 
     // Generar token JWT
     const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, secret, { expiresIn });
@@ -57,6 +79,10 @@ exports.iniciarSesion = async (req, res) => {
     res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 };
+
+
+
+
 
 // Obtener todos los usuarios
 exports.obtenerUsuarios = async (req, res) => {
@@ -80,5 +106,19 @@ exports.eliminarUsuario = async (req, res) => {
     res.status(200).json({ mensaje: 'Usuario eliminado exitosamente' });
   } catch (error) {
     res.status(500).json({ error: 'Error al eliminar el usuario' });
+  }
+};
+
+exports.obtenerUsuarioPorId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const usuario = await Usuario.findByPk(id); // Buscar por clave primaria
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    res.status(200).json(usuario);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener el usuario' });
   }
 };

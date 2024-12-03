@@ -37,12 +37,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `turnos` (
   `id` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
-  `horario` time NOT NULL,
+  `fecha` varchar(255) NOT NULL,
+  `horario` varchar(255) NOT NULL,
   `medicoId` int(11) NOT NULL,
   `medicoNombre` varchar(255) DEFAULT NULL,
   `medicoTipo` varchar(255) DEFAULT NULL,
-  `pacienteId` int(11) NOT NULL,
+  `pacienteId` varchar(255) DEFAULT 'Ninguno',
   `pacienteNombre` varchar(255) DEFAULT NULL,
   `estado` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
