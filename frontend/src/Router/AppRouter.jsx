@@ -5,7 +5,7 @@ import RutasProtegidas from "./RutasProtegidas";
 import RutasPacientes from "./RutasPacientes";
 import RutasMedicos from "./RutasMedicos";
 import Error404 from "../pages/error404/Error404";
-
+import SignUp from "../pages/home/SignUp";
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -26,7 +26,9 @@ const AppRouter = () => {
             </RutasProtegidas>
           }
         />
+        
         <Route path="/" element={<Home />} />
+        <Route path="/SignUp" element={<SignUp />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>

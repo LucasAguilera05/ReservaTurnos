@@ -4,16 +4,27 @@ import { Link } from "react-router-dom";
 import useAuth from "../../stores/Auth-Store";
 
 const Error404 = () => {
-  const {user} = useAuth()
+  const { user } = useAuth(); // Obtenemos el usuario de Auth-Store
 
-  const buscarRuta =(usuario)=>{
-    if(usuario.rol === "Paciente"){
-      return "/pacientes" 
+  // Función para determinar la ruta según el rol del usuario
+  const buscarRuta = (usuario) => {
+    if (!usuario) {
+      console.warn("Usuario no definido o es null");
+      return "/SignUp"; // Ruta predeterminada si no hay usuario
     }
-    if(usuario.rol === "Medico"){
-      return "/medicos" 
+
+    if (usuario.rol === "Paciente") {
+      return "/pacientes";
     }
-  }
+
+    if (usuario.rol === "Medico") {
+      return "/medicos";
+    }
+
+    // Si el rol no es reconocido, retornar a una página predeterminada
+    return "/SignUp";
+  };
+
   return (
     <div className="error-container">
       <img

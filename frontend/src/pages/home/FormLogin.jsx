@@ -116,6 +116,18 @@ const FormLogin = () => {
             >
               {isSubmitting ? "Cargando..." : "Ingresar"}
             </Button>
+
+            <div className="text-center mt-3">
+        <Button
+          variant="outline-primary"
+          className="btnFormulario"
+          onClick={() => navigate('/SignUp')}
+        >
+          Crear cuenta
+        </Button>
+      </div>
+
+            
           </Form>
         )}
       </Formik>
