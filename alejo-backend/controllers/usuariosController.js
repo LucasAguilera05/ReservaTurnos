@@ -33,7 +33,8 @@ exports.registrarUsuario = async (req, res) => {
 
     res.status(201).json(nuevoUsuario);
   } catch (error) {
-    res.status(500).json({ error: 'Error al registrar el usuario' });
+    console.log("error al cargar usuario", error);
+    res.status(500).json({ error: 'Error al registrar el usuario'});
   }
 };
 
@@ -76,6 +77,7 @@ exports.iniciarSesion = async (req, res) => {
     const token = jwt.sign({ id: usuario.id, rol: usuario.rol }, secret, { expiresIn });
     res.status(200).json({ token, usuario });
   } catch (error) {
+    console.log("error al isiciar sesion");
     res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 };
@@ -90,6 +92,7 @@ exports.obtenerUsuarios = async (req, res) => {
     const usuarios = await Usuario.findAll();
     res.status(200).json(usuarios);
   } catch (error) {
+    console.log("error al obtener");
     res.status(500).json({ error: 'Error al obtener usuarios' });
   }
 };
@@ -105,6 +108,7 @@ exports.eliminarUsuario = async (req, res) => {
     await usuario.destroy();
     res.status(200).json({ mensaje: 'Usuario eliminado exitosamente' });
   } catch (error) {
+    console.log("error al eliminar");
     res.status(500).json({ error: 'Error al eliminar el usuario' });
   }
 };
@@ -119,6 +123,7 @@ exports.obtenerUsuarioPorId = async (req, res) => {
     }
     res.status(200).json(usuario);
   } catch (error) {
+    console.log("error al buscar");
     res.status(500).json({ error: 'Error al obtener el usuario' });
   }
 };

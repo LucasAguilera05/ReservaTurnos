@@ -131,37 +131,34 @@ const solicitarTurno = () => {
       </Nav>
 
       <Table striped hover responsive className="rounded">
-        <thead>
-          <tr>
-            <th className="tableMaterias fw-bold">Apellido</th>
-            <th className="tableMaterias fw-bold">Nombre</th>
-            <th className="tableMaterias fw-bold">Telefono</th>
-            <th className="tableMaterias fw-bold">Correo</th>
-            <th className="tableMaterias fw-bold">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {usuariosActuales.length === 0 ? (
-            <tr>
-              <td colSpan="6" className="text-center">
-                Debe seleccionar una especialidad.
-              </td>
-            </tr>
-          ) : (
-            usuariosActuales.map((usuario) => (
-              <tr key={usuario.id}>
-                <td className="tableMaterias">{usuario.apellido}</td>
-                <td className="tableMaterias">{usuario.nombre}</td>
-                <td className="tableMaterias">{usuario.telefono}</td>
-                <td className="tableMaterias">{usuario.email}</td>
-                <td className="tableMaterias">
-                  <ModalSolicitar usuario={usuario}>Buscar Turnos</ModalSolicitar>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
+  <thead>
+    <tr>
+      <th className="tableMaterias fw-bold text-center">Apellido</th>
+      <th className="tableMaterias fw-bold text-center">Nombre</th>
+      <th className="tableMaterias fw-bold text-center">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {usuariosActuales.length === 0 ? (
+      <tr>
+        <td colSpan="3" className="text-center">
+          Debe seleccionar una especialidad.
+        </td>
+      </tr>
+    ) : (
+      usuariosActuales.map((usuario) => (
+        <tr key={usuario.id}>
+          <td className="tableMaterias text-center">{usuario.apellido}</td>
+          <td className="tableMaterias text-center">{usuario.nombre}</td>
+          <td className="tableMaterias text-center">
+            <ModalSolicitar usuario={usuario}>Buscar Turnos</ModalSolicitar>
+          </td>
+        </tr>
+      ))
+    )}
+  </tbody>
+</Table>
+
       <Pagination className="justify-content-center mt-4">
         <Pagination.First
           onClick={() => handlePaginacionClick(1)}

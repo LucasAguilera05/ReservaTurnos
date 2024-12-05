@@ -7,7 +7,7 @@ const Usuario = sequelize.define('Usuario', {
     primaryKey: true,
   },
   dni: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   nombre: {
@@ -24,7 +24,7 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false,
   },
   telefono: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   direccion: {
@@ -41,7 +41,7 @@ const Usuario = sequelize.define('Usuario', {
   },
   rol: {
     type: DataTypes.STRING,
-    defaultValue: 'paciente', // admin, doctor, paciente
+    defaultValue: 'Paciente', // admin, doctor, paciente
   },
   edad: {
     type: DataTypes.INTEGER,

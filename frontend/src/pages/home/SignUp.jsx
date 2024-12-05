@@ -22,8 +22,7 @@ const schema = yup.object().shape({
   sexo: yup.string().required("El sexo es requerido"),
   peso: yup.number().positive("El peso debe ser un número positivo").required("El peso es requerido"),
   altura: yup.number().positive("La altura debe ser un número positivo").required("La altura es requerida"),
-  historial: yup.string().required("El historial médico es requerido"),
-  especialidad: yup.string().required("La especialidad es requerida"),
+  historial: yup.string().required("El historial médico es requerido")
 });
 
 
@@ -73,7 +72,6 @@ const SignUp = () => {
     peso: "",
     altura: "",
     historial: "",
-    especialidad: "",
   }}
 >
 
@@ -305,23 +303,8 @@ const SignUp = () => {
   <Form.Control.Feedback type="invalid">
     {errors.historial}
   </Form.Control.Feedback>
-</Form.Group>
 
-<Form.Group className="mb-3" controlId="formEspecialidad">
-  <Form.Label className="tituloSecundario">Especialidad</Form.Label>
-  <Form.Control
-    type="text"
-    name="especialidad"
-    placeholder="Ingrese su especialidad"
-    value={values.especialidad}
-    onChange={handleChange}
-    isInvalid={touched.especialidad && !!errors.especialidad}
-    isValid={touched.especialidad && !errors.especialidad}
-    className="border border-dark"
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.especialidad}
-  </Form.Control.Feedback>
+
 </Form.Group>
 
 
