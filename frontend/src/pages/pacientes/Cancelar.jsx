@@ -98,35 +98,16 @@ const Cancelar = ({ turno }) => {
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
-            <FormikForm>
-            <Modal.Body className="row">
+            <FormikForm className="m-1 d-flex justify-content-center align-items-center flex-column">
+            
               
-              <Form.Group className="col-12 mb-3" controlId="formEstado">
-                <Form.Label>Estado</Form.Label>
-                <Field
-                  as="select"
-                  name="estado"
-                  className={`form-control ${
-                    touched.estado && errors.estado ? "is-invalid" : ""
-                  }`}
-                >
-                  <option value="">Seleccione un estado</option>
-                  <option value="Ninguno">Ninguno</option>
-                  <option value="Cancelar">Cancelar</option>
-                </Field>
-                <ErrorMessage
-                  name="estado"
-                  component="div"
-                  className="invalid-feedback"
-                />
-              </Form.Group>
-            </Modal.Body>
+              <p>¿Está seguro de cancelar el turno?</p>
 
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Cerrar
               </Button>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" onClick={handleSubmit} >
                 Confirmar Cancelacion
               </Button>
             </Modal.Footer>

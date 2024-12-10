@@ -36,16 +36,7 @@ const Sidebar = ({ handleClose }) => {
                   Perfil
                 </NavLink>
               </li>
-              <li className="nav-item text-center">
-                <NavLink
-                  to="/pacientes/historial"
-                  className="nav-link text-light fw-bold btnSidebar py-3 d-flex justify-content-center align-items-center"
-                  onClick={handleClose}
-                >
-                  <LiaSchoolSolid className="me-2" />
-                  Historial Clinico
-                </NavLink>
-              </li>
+             
               <li className="nav-item text-center">
                 <NavLink
                   to="/pacientes/solicitarTurno"

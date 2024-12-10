@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container, Form, Table, Pagination, Button } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useTurnosStore from "../../stores/Turnos-Store";
-import CrearTurno from "../medicos/ModalesTurnos/CrearTurno";
-import EditarTurno from "../medicos/ModalesTurnos/EditarTurno";
 import useAuth from "../../stores/Auth-Store";
 import useUsuarios from "../../stores/Usuarios-Store";
 import ModalSolicitar from "./ModalSolicitar";
 import Cancelar from "./Cancelar";
-
 const solicitarTurno = () => {
   const usuarios = useUsuarios((state) => state.usuarios || []);
   const getUsuarios = useUsuarios((state) => state.getUsuarios);
@@ -21,7 +16,7 @@ const solicitarTurno = () => {
   }));
   const { turnos, obtenerTurnos, borrarTurno } = useTurnosStore();
 
-  const [tabSeleccionada, setTabSeleccionada] = useState("Todos");
+  const [tabSeleccionada, setTabSeleccionada] = useState("");
   const [busqueda, setBusqueda] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
   const usuariosPorPagina = 10;
@@ -34,8 +29,8 @@ const solicitarTurno = () => {
     getUsuarios();
   }, [user?.id, getUsuarioById, getUsuarios]);
 
-  const handleTabSeleccionada = (tab) => {
-    setTabSeleccionada(tab);
+  const handleTabSeleccionada = (e) => {
+    setTabSeleccionada(e.target.value);
     setPaginaActual(1);
   };
 
@@ -48,12 +43,16 @@ const solicitarTurno = () => {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
 
-  const filtrarUsuarios = usuarios.filter((usuario) => {
+  const medicos = usuarios.filter((usuario) => usuario.rol === "Medico");
+
+  const especialidadesUnicas = [...new Set(medicos.map((u) => u.especialidad))];
+
+  const filtrarUsuarios = medicos.filter((usuario) => {
     const busquedaNormalizada = normalizarTexto(busqueda);
     const nombreNormalizado = normalizarTexto(usuario.nombre);
     const apellidoNormalizado = normalizarTexto(usuario.apellido);
     const categoriaSeleccionada =
-      tabSeleccionada === usuario.especialidad ;
+      !tabSeleccionada || tabSeleccionada === usuario.especialidad;
     const busquedaRealizada =
       nombreNormalizado.toLowerCase().includes(busquedaNormalizada) ||
       apellidoNormalizado.toLowerCase().includes(busquedaNormalizada);
@@ -73,91 +72,55 @@ const solicitarTurno = () => {
     setPaginaActual(numeroPagina);
   };
 
-  const eliminarTurno = (id) => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No podrás revertir esto",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await borrarTurno(id);
-          Swal.fire("Eliminado", "El turno ha sido eliminado.", "success");
-        } catch (error) {
-          Swal.fire(
-            "Error",
-            error.message || "No se pudo eliminar el turno.",
-            "error"
-          );
-        }
-      }
-    });
-  };
-
-  
-
   return (
     <Container className="text-center px-md-5 py-md-2">
       <h2 className="my-5 disenoTitulo text-primary">Solicitar Turno</h2>
 
-      <Nav
-        variant="tabs"
-        defaultActiveKey="/home"
-        className="mt-4 mb-1 tabsRoles"
-        onSelect={(key) => handleTabSeleccionada(key)}
-      >
-        <Nav.Item>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="Odontología" active={tabSeleccionada === "Odontología"}>
-          Odontología
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="Pediatria" active={tabSeleccionada === "Pediatria"}>
-          Pediatria
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="Dermatologia" active={tabSeleccionada === "Dermatologia"}>
-          Dermatologia
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <Form.Group className="mb-4">
+        <Form.Label>Seleccione una especialidad</Form.Label>
+        <Form.Select
+          value={tabSeleccionada}
+          onChange={handleTabSeleccionada}
+          className="mx-auto"
+          style={{ width: "50%" }}
+        >
+          <option value="">Todas</option>
+          {especialidadesUnicas.map((especialidad, index) => (
+            <option key={index} value={especialidad}>
+              {especialidad}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
 
       <Table striped hover responsive className="rounded">
-  <thead>
-    <tr>
-      <th className="tableMaterias fw-bold text-center">Apellido</th>
-      <th className="tableMaterias fw-bold text-center">Nombre</th>
-      <th className="tableMaterias fw-bold text-center">Opciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {usuariosActuales.length === 0 ? (
-      <tr>
-        <td colSpan="3" className="text-center">
-          Debe seleccionar una especialidad.
-        </td>
-      </tr>
-    ) : (
-      usuariosActuales.map((usuario) => (
-        <tr key={usuario.id}>
-          <td className="tableMaterias text-center">{usuario.apellido}</td>
-          <td className="tableMaterias text-center">{usuario.nombre}</td>
-          <td className="tableMaterias text-center">
-            <ModalSolicitar usuario={usuario}>Buscar Turnos</ModalSolicitar>
-          </td>
-        </tr>
-      ))
-    )}
-  </tbody>
-</Table>
+        <thead>
+          <tr>
+            <th className="tableMaterias fw-bold text-center">Apellido</th>
+            <th className="tableMaterias fw-bold text-center">Nombre</th>
+            <th className="tableMaterias fw-bold text-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {usuariosActuales.length === 0 ? (
+            <tr>
+              <td colSpan="3" className="text-center">
+                No hay médicos disponibles.
+              </td>
+            </tr>
+          ) : (
+            usuariosActuales.map((usuario) => (
+              <tr key={usuario.id}>
+                <td className="tableMaterias text-center">{usuario.apellido}</td>
+                <td className="tableMaterias text-center">{usuario.nombre}</td>
+                <td className="tableMaterias text-center">
+                  <ModalSolicitar  usuario={usuario}>Buscar Turnos</ModalSolicitar>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </Table>
 
       <Pagination className="justify-content-center mt-4">
         <Pagination.First
@@ -186,8 +149,7 @@ const solicitarTurno = () => {
           disabled={paginaActual === totalPaginas}
         />
       </Pagination>
-
-<hr />
+      <hr />
       <h2 className="text-primary  mt-4">Turnos Pedidos</h2>
       {turnos.length > 0 ? (
         <Table striped hover responsive className="rounded">
@@ -226,6 +188,7 @@ const solicitarTurno = () => {
         <p>No se encontró ningún turno que coincida con los filtros.</p>
       )}
     </Container>
+    
   );
 };
 

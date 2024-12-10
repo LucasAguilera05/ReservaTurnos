@@ -141,17 +141,14 @@ const CrearTurno = (medico) => {
                 <Form.Group className="col-12 mb-3" controlId="formHorario">
                   <Form.Label>Horario</Form.Label>
                   <Field
-                    as="select"
+                    
                     name="horario"
+                    type="time"
                     className={`form-control ${
                       touched.horario && errors.horario ? "is-invalid" : ""
                     }`}
                   >
-                    <option value="">Seleccione un horario</option>
-                    <option value="0800">8:00</option>
-                    <option value="0900">9:00</option>
-                    <option value="1000">10:00</option>
-                    <option value="1100">11:00</option>
+                
                   </Field>
                   <ErrorMessage
                     name="horario"

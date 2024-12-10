@@ -19,10 +19,7 @@ const schema = yup.object().shape({
   passwordConfirm: yup.string()
     .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir")
     .required("Confirmar la contraseña es requerido"),
-  sexo: yup.string().required("El sexo es requerido"),
-  peso: yup.number().positive("El peso debe ser un número positivo").required("El peso es requerido"),
-  altura: yup.number().positive("La altura debe ser un número positivo").required("La altura es requerida"),
-  historial: yup.string().required("El historial médico es requerido")
+
 });
 
 
@@ -68,10 +65,7 @@ const SignUp = () => {
     direccion: "",
     password: "",
     passwordConfirm: "",
-    sexo: "",
-    peso: "",
-    altura: "",
-    historial: "",
+    
   }}
 >
 
@@ -236,76 +230,9 @@ const SignUp = () => {
                 {errors.passwordConfirm}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formSexo">
-  <Form.Label className="tituloSecundario">Sexo</Form.Label>
-  <Form.Control
-    type="text"
-    name="sexo"
-    placeholder="Ingrese su sexo"
-    value={values.sexo}
-    onChange={handleChange}
-    isInvalid={touched.sexo && !!errors.sexo}
-    isValid={touched.sexo && !errors.sexo}
-    className="border border-dark"
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.sexo}
-  </Form.Control.Feedback>
-</Form.Group>
-
-<Form.Group className="mb-3" controlId="formPeso">
-  <Form.Label className="tituloSecundario">Peso</Form.Label>
-  <Form.Control
-    type="number"
-    name="peso"
-    placeholder="Ingrese su peso"
-    value={values.peso}
-    onChange={handleChange}
-    isInvalid={touched.peso && !!errors.peso}
-    isValid={touched.peso && !errors.peso}
-    className="border border-dark"
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.peso}
-  </Form.Control.Feedback>
-</Form.Group>
-
-<Form.Group className="mb-3" controlId="formAltura">
-  <Form.Label className="tituloSecundario">Altura</Form.Label>
-  <Form.Control
-    type="number"
-    step="0.01"
-    name="altura"
-    placeholder="Ingrese su altura"
-    value={values.altura}
-    onChange={handleChange}
-    isInvalid={touched.altura && !!errors.altura}
-    isValid={touched.altura && !errors.altura}
-    className="border border-dark"
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.altura}
-  </Form.Control.Feedback>
-</Form.Group>
-
-<Form.Group className="mb-3" controlId="formHistorial">
-  <Form.Label className="tituloSecundario">Historial Médico</Form.Label>
-  <Form.Control
-    type="text"
-    name="historial"
-    placeholder="Ingrese su historial médico"
-    value={values.historial}
-    onChange={handleChange}
-    isInvalid={touched.historial && !!errors.historial}
-    isValid={touched.historial && !errors.historial}
-    className="border border-dark"
-  />
-  <Form.Control.Feedback type="invalid">
-    {errors.historial}
-  </Form.Control.Feedback>
+           
 
 
-</Form.Group>
 
 
             {errors.server && (

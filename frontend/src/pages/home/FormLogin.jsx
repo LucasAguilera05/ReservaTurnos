@@ -109,18 +109,22 @@ const FormLogin = () => {
               <div className="text-danger mb-3">{errors.server}</div>
             )}
 
+            <div className="text-center mt-3"> 
+
             <Button
               type="submit"
-              className="btnFormulario"
+              className="btnFormcustom-btn btn-1"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Cargando..." : "Ingresar"}
             </Button>
 
+            </div>
+
             <div className="text-center mt-3">
         <Button
-          variant="outline-primary"
-          className="btnFormulario"
+          //variant="outline-primary"
+          className="btnFormcustom-btn btn-1"
           onClick={() => navigate('/SignUp')}
         >
           Crear cuenta
