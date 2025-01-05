@@ -41,7 +41,7 @@ const Usuario = sequelize.define('Usuario', {
   },
   rol: {
     type: DataTypes.STRING,
-    defaultValue: 'Paciente', // admin, doctor, paciente
+    defaultValue: 'Paciente', // administrador, doctor, paciente
   },
   edad: {
     type: DataTypes.INTEGER,

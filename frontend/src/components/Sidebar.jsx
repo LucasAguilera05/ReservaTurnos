@@ -84,11 +84,46 @@ const Sidebar = ({ handleClose }) => {
               </li>
             </ul>
           )}
+          {(userSession.rol === "administrador" || userSession.rol === "Administrador") && (
+            <ul className="navbar-nav w-100">
+              <li className="nav-item text-center">
+                <NavLink
+                  to="/Administrador/PanelAdmin/"
+                  className="nav-link text-light fw-bold btnSidebar py-3 d-flex justify-content-center align-items-center"
+                  onClick={handleClose}
+                >
+                  <LiaSchoolSolid className="me-2" />
+                  Inicio
+                </NavLink>
+              </li>
+              <li className="nav-item text-center">
+                <NavLink
+                  to="/Administrador/PanelAdmin/Perfil"
+                  className="nav-link text-light fw-bold btnSidebar py-3 d-flex justify-content-center align-items-center"
+                  onClick={handleClose}
+                >
+                  <ImProfile className="me-2" />
+                  Perfil
+                </NavLink>
+              </li>
+              <li className="nav-item text-center">
+                <NavLink
+                  to="/Administrador/PanelAdmin/Usuarios"
+                  className="nav-link text-light fw-bold btnSidebar py-3 d-flex justify-content-center align-items-center"
+                  onClick={handleClose}
+                >
+                  <LiaSchoolSolid className="me-2" />
+                  Todos los usuarios
+                </NavLink>
+              </li>
+             
+            </ul>
+          )}
         </nav>
       </div>
       <footer className="bg-dark py-3">
         <p className="tituloFooter">Sistema de Gestión Citas</p>
-        <p className="tituloFooter">Grupo 1 - Diseño de Sistemas 2024</p>
+        <p className="tituloFooter">Lucas Aguilera</p>
         <p className="copyFooter">Todos los derechos reservados &copy;</p>
       </footer>
     </div>

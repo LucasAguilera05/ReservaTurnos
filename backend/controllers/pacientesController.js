@@ -1,6 +1,5 @@
 const Paciente = require('../model/Paciente');
 
-// Obtener todos los pacientes
 exports.obtenerPacientes = async (req, res) => {
   try {
     const pacientes = await Paciente.findAll();
@@ -10,7 +9,6 @@ exports.obtenerPacientes = async (req, res) => {
   }
 };
 
-// Crear un nuevo paciente
 exports.crearPaciente = async (req, res) => {
   const { nombre, apellido, dni, telefono } = req.body;
 
@@ -22,7 +20,6 @@ exports.crearPaciente = async (req, res) => {
   }
 };
 
-// Actualizar un paciente
 exports.actualizarPaciente = async (req, res) => {
   const { id } = req.params;
   const { nombre, apellido, dni, telefono } = req.body;
@@ -43,7 +40,6 @@ exports.actualizarPaciente = async (req, res) => {
   }
 };
 
-// Eliminar un paciente
 exports.eliminarPaciente = async (req, res) => {
   const { id } = req.params;
 

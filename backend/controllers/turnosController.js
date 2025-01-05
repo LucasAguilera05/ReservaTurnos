@@ -14,20 +14,6 @@ exports.crearTurno = async (req, res) => {
   }
 };
 
-// Obtener todas las citas
-// exports.obtenerTurnos = async (req, res) => {
-//   try {
-//     const turnos = await Turno.findAll({
-//       include: [
-//         { model: Paciente, as: 'Paciente', attributes: ['nombre', 'apellido'] },
-//         { model: Doctor, as: 'Medico', attributes: ['nombre', 'especialidad'] },
-//       ],
-//     });
-//     res.status(200).json(turnos);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Error al obtener turnos' });
-//   }
-// };
 
 // Obtener todos los turnos (sin información de paciente y médico)
 exports.obtenerTurnos = async (req, res) => {

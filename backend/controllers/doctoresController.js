@@ -1,6 +1,5 @@
 const Doctor = require('../model/Doctor');
 
-// Obtener todos los doctores
 exports.obtenerDoctores = async (req, res) => {
   try {
     const doctores = await Doctor.findAll();
@@ -10,7 +9,6 @@ exports.obtenerDoctores = async (req, res) => {
   }
 };
 
-// Crear un nuevo doctor
 exports.crearDoctor = async (req, res) => {
   const { nombre, especialidad, telefono } = req.body;
 
@@ -22,7 +20,6 @@ exports.crearDoctor = async (req, res) => {
   }
 };
 
-// Actualizar un doctor
 exports.actualizarDoctor = async (req, res) => {
   const { id } = req.params;
   const { nombre, especialidad, telefono } = req.body;
@@ -42,7 +39,6 @@ exports.actualizarDoctor = async (req, res) => {
   }
 };
 
-// Eliminar un doctor
 exports.eliminarDoctor = async (req, res) => {
   const { id } = req.params;
 

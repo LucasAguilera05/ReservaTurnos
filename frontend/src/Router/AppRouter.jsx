@@ -6,6 +6,8 @@ import RutasPacientes from "./RutasPacientes";
 import RutasMedicos from "./RutasMedicos";
 import Error404 from "../pages/error404/Error404";
 import SignUp from "../pages/home/SignUp";
+import PanelAdmin from "../pages/home/Administrador/PanelAdmin";
+import RutasAdmin from "./RutasAdmin"
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -30,6 +32,16 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="*" element={<Error404 />} />
+        
+        <Route 
+        path="/Administrador/PanelAdmin/*" 
+        element={
+        <RutasProtegidas>
+           <RutasAdmin /> 
+        </RutasProtegidas>
+        }
+        />
+
       </Routes>
     </BrowserRouter>
   );

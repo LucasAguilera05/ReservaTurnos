@@ -32,12 +32,15 @@ const FormLogin = () => {
         timer: 1000, 
         showConfirmButton: false, 
         willClose: () => {
-          if (user.rol === "Paciente") {
+          if (user.rol === "Paciente" || user.rol === "paciente") {
             navigate("/pacientes/perfil");
-          } else if (user.rol === "Medico") {
+          } else if (user.rol === "Medico" || user.rol === "medico" || user.rol === "Médico" || user.rol === "médico") {
             navigate("/medicos/perfil");
           }
+          else if (user.rol === "Administrador" || user.rol === "administrador") {
+            navigate("/Administrador/PanelAdmin");
         }
+      }
       });
 
     } catch (error) {
