@@ -19,7 +19,7 @@ const AdminUsers = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const usuariosPorPagina = 10;
 
-  const navigate = useNavigate();  // Después
+const navigate = useNavigate();  // Después
 
   useEffect(() => {
     if (user?.id) {
