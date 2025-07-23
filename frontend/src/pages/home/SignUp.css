@@ -1,0 +1,71 @@
+.formularioSignUp {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tituloForm {
+    color: #0056b3;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .tituloSecundario {
+    color: #495057;
+    font-weight: 600;
+  }
+  
+  .btnFormulario {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #0056b3;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnFormulario:hover {
+    background-color: #003d82;
+  }
+  
+  .btnFormulario:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .form-control {
+    border-color: #ced4da;
+  }
+  
+  .form-control:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+  }
+  
+  .text-danger {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  @media (max-width: 576px) {
+    .formularioSignUp {
+      padding: 15px;
+    }
+  
+    .tituloForm {
+      font-size: 24px;
+    }
+  
+    .btnFormulario {
+      font-size: 14px;
+    }
+  }
+
+  
+  
+  
