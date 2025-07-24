@@ -48,26 +48,31 @@ const AdminPanel = () => {
     }
     return schemaBase; // Para administrador
   };
+const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+  try {
+    const datosConRol = {
+      ...values,
+      rol: userType // ← Aquí agregás el rol correcto antes de enviar
+    };
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    try {
-      const success = await createUsuario(values);
-      if (success) {
-        Swal.fire({
-          title: `${userType} creado exitosamente`,
-          text: `${userType} creado exitosamente.`,
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-        setShowModal(false);
-      }
-    } catch (error) {
-      setErrors({ server: "Error al guardar los datos. Por favor, intente nuevamente." });
-    } finally {
-      setSubmitting(false);
+    const success = await createUsuario(datosConRol);
+    if (success) {
+      Swal.fire({
+        title: `${userType} creado exitosamente`,
+        text: `${userType} creado exitosamente.`,
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      setShowModal(false);
     }
-  };
+  } catch (error) {
+    setErrors({ server: "Error al guardar los datos. Por favor, intente nuevamente." });
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   return (
     <Container className="my-4">
