@@ -63,13 +63,23 @@ const Turnos = () => {
 
   const filtrarTurnos = turnos.filter((turno) => {
     const busquedaNormalizada = normalizarTexto(busqueda);
-    const fechaNormalizado = normalizarTexto(turno.fecha);
-    const horarioTipoNormalizado = normalizarTexto(turno.horario);
-    const categoriaSeleccionada = tabSeleccionada === "Hoy" || tabSeleccionada === turno.estado || tabSeleccionada === turno.fecha;
-    // const fechaSeleccionada = tabFechaSelecciona === turno.fecha;
+    const fechaNormalizada = normalizarTexto(turno.fecha);
+    const horarioNormalizado = normalizarTexto(turno.horario);
+    
+    // Condición de búsqueda general
     const busquedaRealizada =
-      fechaNormalizado.toLowerCase().includes(busquedaNormalizada) ||
+      fechaNormalizada.toLowerCase().includes(busquedaNormalizada) ||
       horarioNormalizado.toLowerCase().includes(busquedaNormalizada);
+
+    // Condición de tabulador
+    let categoriaSeleccionada = false;
+    if (tabSeleccionada === fecha) {
+      // Pestaña "Hoy"
+      categoriaSeleccionada = (turno.fecha === fecha) && (turno.estado !== "Completado") && (turno.estado !== "Finalizado");
+    } else {
+      // Otras pestañas (Disponibles=Ninguno, Confirmado, Completado, Finalizado)
+      categoriaSeleccionada = (turno.estado === tabSeleccionada);
+    }
 
     return categoriaSeleccionada && busquedaRealizada;
   });
@@ -161,6 +171,14 @@ const Turnos = () => {
             active={tabSeleccionada === "Finalizado"}
           >
             Finalizados
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            eventKey="Completado"
+            active={tabSeleccionada === "Completado"}
+          >
+            Completados
           </Nav.Link>
         </Nav.Item>
       </Nav>

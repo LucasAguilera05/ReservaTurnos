@@ -36,8 +36,8 @@ const ListadoUsuarios = () => {
 
   const filtrarUsuarios = usuarios.filter((usuario) => {
     const busquedaNormalizada = normalizarTexto(busqueda);
-    const nombreNormalizado = normalizarTexto(usuario.nombre);
-    const apellidoNormalizado = normalizarTexto(usuario.apellido);
+    const nombreNormalizado = normalizarTexto(usuario?.pacienteData?.nombre || "");
+    const apellidoNormalizado = normalizarTexto(usuario?.pacienteData?.apellido || "");
     const categoriaSeleccionada =
       tabSeleccionada === "Paciente" || usuario.rol === "Paciente";
     const busquedaRealizada =
@@ -96,9 +96,9 @@ const ListadoUsuarios = () => {
           ) : (
             usuariosActuales.map((usuario) => (
               <tr key={usuario.id}>
-                <td className="tableMaterias">{usuario.apellido}</td>
-                <td className="tableMaterias">{usuario.nombre}</td>
-                <td className="tableMaterias">{usuario.dni}</td>
+                <td className="tableMaterias">{usuario?.pacienteData?.apellido}</td>
+                <td className="tableMaterias">{usuario?.pacienteData?.nombre}</td>
+                <td className="tableMaterias">{usuario?.pacienteData?.dni}</td>
                 <td className="tableMaterias">{usuario.email}</td>
                 <td className="tableMaterias"><ModalInfo user={usuario} /></td>
               </tr>

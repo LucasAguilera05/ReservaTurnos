@@ -22,6 +22,8 @@ const EditarTurno = ({ turno }) => {
     pacienteId: Yup.string().required("La división es obligatoria"),
     pacienteNombre: Yup.string().required("La división es obligatoria"),
     estado: Yup.string().required("La división es obligatoria"),
+    diagnostico: Yup.string(),
+    tratamiento: Yup.string(),
   });
 
   const initialValues = {
@@ -33,6 +35,8 @@ const EditarTurno = ({ turno }) => {
     pacienteId: turno.pacienteId || "Ninguno",
     pacienteNombre: turno.pacienteNombre || "Ninguno",
     estado: turno.estado || "Ninguno",
+    diagnostico: turno.diagnostico || "",
+    tratamiento: turno.tratamiento || "",
   };
 
   const handleSubmit = async (values) => {
@@ -129,12 +133,40 @@ const EditarTurno = ({ turno }) => {
                   <option value="">Seleccione un estado</option>
                   <option value="Ninguno">Ninguno</option>
                   <option value="Confirmado">Confirmado</option>
+                  <option value="Completado">Completado</option>
                   <option value="Finalizado">Finalizado</option>
                 </Field>
                 <ErrorMessage
                   name="estado"
                   component="div"
                   className="invalid-feedback"
+                />
+              </Form.Group>
+
+              {/* Nuevos campos de Historial Clínico */}
+              <Form.Group className="col-12 mb-3" controlId="formDiagnostico">
+                <Form.Label>Diagnóstico (Opcional)</Form.Label>
+                <Field
+                  as="textarea"
+                  rows={2}
+                  name="diagnostico"
+                  className={`form-control ${
+                    touched.diagnostico && errors.diagnostico ? "is-invalid" : ""
+                  }`}
+                  placeholder="Ingrese el diagnóstico del paciente en esta consulta"
+                />
+              </Form.Group>
+
+              <Form.Group className="col-12 mb-3" controlId="formTratamiento">
+                <Form.Label>Tratamiento / Indicaciones (Opcional)</Form.Label>
+                <Field
+                  as="textarea"
+                  rows={2}
+                  name="tratamiento"
+                  className={`form-control ${
+                    touched.tratamiento && errors.tratamiento ? "is-invalid" : ""
+                  }`}
+                  placeholder="Ingrese el tratamiento o indicaciones dadas"
                 />
               </Form.Group>
             </Modal.Body>

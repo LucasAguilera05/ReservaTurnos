@@ -24,13 +24,13 @@ const Perfil = () => {
       <article className="perfil-card rounded py-2 mt-3 bg-azulOscuro text-light">
         <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
           <h6 className="me-1 my-0 fw-bold">DNI:</h6>
-          <span>{usuario?.dni}</span>
+          <span>{usuario?.pacienteData?.dni}</span>
         </div>
         <hr className="my-1 mx-2" />
         <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
           <h6 className="me-1 my-0 fw-bold">Nombre Completo</h6>
           <span>
-            {usuario?.nombre} {usuario?.apellido}
+            {usuario?.pacienteData?.nombre} {usuario?.pacienteData?.apellido}
           </span>
         </div>
         <hr className="my-1 mx-2" />
@@ -41,12 +41,12 @@ const Perfil = () => {
         <hr className="my-1 mx-2" />
         <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
           <h6 className="me-1 my-0 fw-bold">Direccion</h6>
-          <span>{usuario?.direccion}</span>
+          <span>{usuario?.pacienteData?.direccion}</span>
         </div>
         <hr className="my-1 mx-2" />
         <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
           <h6 className="me-1 my-0 fw-bold">Número de Celular</h6>
-          <span>{usuario?.telefono}</span>
+          <span>{usuario?.pacienteData?.telefono}</span>
         </div>
       </article>
     </Container>

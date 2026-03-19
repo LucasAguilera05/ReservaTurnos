@@ -5,30 +5,11 @@ const Usuario = sequelize.define('Usuario', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-  },
-  dni: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  nombre: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  apellido: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    autoIncrement: true,
   },
   email: {
     type: DataTypes.STRING,
     unique: true,
-    allowNull: false,
-  },
-  telefono: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  direccion: {
-    type: DataTypes.STRING,
     allowNull: false,
   },
   password: {
@@ -41,32 +22,32 @@ const Usuario = sequelize.define('Usuario', {
   },
   rol: {
     type: DataTypes.STRING,
-    defaultValue: 'Paciente', // administrador, doctor, paciente
+    defaultValue: 'Paciente', // administrador, medico, paciente
   },
-  edad: {
+  pacienteId: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    references: {
+      model: 'pacientes',
+      key: 'id'
+    }
   },
-  peso: {
+  medicoId: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    references: {
+      model: 'medicos',
+      key: 'id'
+    }
   },
-  altura: {
-    type: DataTypes.DECIMAL,
+  adminId: {
+    type: DataTypes.INTEGER,
     allowNull: true,
-  },
-  historial: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  sexo: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  especialidad: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+    references: {
+      model: 'administradores',
+      key: 'id'
+    }
+  }
 }, {
   tableName: 'usuarios', // Asegura el nombre exacto de la tabla
   timestamps: false,     // Desactiva las columnas createdAt y updatedAt

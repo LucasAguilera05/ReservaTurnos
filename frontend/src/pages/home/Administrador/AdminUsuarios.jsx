@@ -55,9 +55,11 @@ const navigate = useNavigate();  // Después
   ];
 
   const filtrarUsuarios = usuarios.filter((usuario) => {
+    const nombre = usuario?.pacienteData?.nombre || usuario?.medicoData?.nombre || usuario?.adminData?.nombre || "";
+    const apellido = usuario?.pacienteData?.apellido || usuario?.medicoData?.apellido || usuario?.adminData?.apellido || "";
     const busquedaNormalizada = normalizarTexto(busqueda);
-    const nombreNormalizado = normalizarTexto(usuario.nombre);
-    const apellidoNormalizado = normalizarTexto(usuario.apellido);
+    const nombreNormalizado = normalizarTexto(nombre);
+    const apellidoNormalizado = normalizarTexto(apellido);
 
     const rolSeleccionado =
       !tabSeleccionada ||
@@ -150,8 +152,8 @@ const navigate = useNavigate();  // Después
           ) : (
             usuariosActuales.map((usuario) => (
               <tr key={usuario.id}>
-                <td className="tableMaterias text-center">{usuario.apellido}</td>
-                <td className="tableMaterias text-center">{usuario.nombre}</td>
+                <td className="tableMaterias text-center">{usuario?.pacienteData?.apellido || usuario?.medicoData?.apellido || usuario?.adminData?.apellido}</td>
+                <td className="tableMaterias text-center">{usuario?.pacienteData?.nombre || usuario?.medicoData?.nombre || usuario?.adminData?.nombre}</td>
                 <td className="tableMaterias text-center">{usuario.rol}</td>
                 <td className="tableMaterias text-center">
                   <Button

@@ -1,4 +1,4 @@
-const Usuario = require('../model/Usuario');
+const { Usuario, Paciente, Medico, Administrador } = require('../model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { secret, expiresIn } = require('../config/jwtConfig');
@@ -10,22 +10,32 @@ exports.registrarUsuario = async (req, res) => {
     const usuarioExistente = await Usuario.findOne({ where: { email } });
     if (usuarioExistente) return res.status(400).json({ error: 'El email ya está registrado' });
 
+    let nuevoPaciente = null;
+    let nuevoMedico = null;
+    let nuevoAdmin = null;
+
+    if (rol && rol.toLowerCase() === 'paciente') {
+      nuevoPaciente = await Paciente.create({
+        dni, nombre, apellido, telefono, direccion, edad, peso, altura, sexo, historial,
+      });
+    } else if (rol && (rol.toLowerCase() === 'medico' || rol.toLowerCase() === 'médico')) {
+      nuevoMedico = await Medico.create({
+        dni, nombre, apellido, telefono, direccion, especialidad,
+      });
+    } else if (rol && (rol.toLowerCase() === 'administrador' || rol.toLowerCase() === 'admin')) {
+      nuevoAdmin = await Administrador.create({
+        dni, nombre, apellido, telefono, direccion,
+      });
+    }
+
     const nuevoUsuario = await Usuario.create({
-      dni,
-      nombre,
-      apellido,
       email,
-      telefono,
-      direccion,
       password,
       passwordConfirm,
       rol,
-      edad,
-      peso,
-      altura,
-      historial,
-      sexo,
-      especialidad,
+      pacienteId: nuevoPaciente ? nuevoPaciente.id : null,
+      medicoId: nuevoMedico ? nuevoMedico.id : null,
+      adminId: nuevoAdmin ? nuevoAdmin.id : null,
     });
 
     res.status(201).json(nuevoUsuario);
@@ -40,7 +50,14 @@ exports.iniciarSesion = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const usuario = await Usuario.findOne({ where: { email } });
+    const usuario = await Usuario.findOne({ 
+      where: { email },
+      include: [
+        { model: Paciente, as: 'pacienteData' },
+        { model: Medico, as: 'medicoData' },
+        { model: Administrador, as: 'adminData' }
+      ]
+    });
     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
 
     if (password !== usuario.password) {
@@ -61,7 +78,13 @@ exports.iniciarSesion = async (req, res) => {
 
 exports.obtenerUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll();
+    const usuarios = await Usuario.findAll({
+      include: [
+        { model: Paciente, as: 'pacienteData' },
+        { model: Medico, as: 'medicoData' },
+        { model: Administrador, as: 'adminData' }
+      ]
+    });
     res.status(200).json(usuarios);
   } catch (error) {
     console.log("error al obtener");
@@ -88,7 +111,13 @@ exports.obtenerUsuarioPorId = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const usuario = await Usuario.findByPk(id); // Buscar por clave primaria
+    const usuario = await Usuario.findByPk(id, {
+      include: [
+        { model: Paciente, as: 'pacienteData' },
+        { model: Medico, as: 'medicoData' },
+        { model: Administrador, as: 'adminData' }
+      ]
+    }); // Buscar por clave primaria
     if (!usuario) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }

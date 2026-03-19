@@ -8,6 +8,7 @@ import { BiSolidMessageAltDetail } from "react-icons/bi";
 import { ImProfile } from "react-icons/im";
 import { IoSchool } from "react-icons/io5";
 import { FaClipboardCheck } from "react-icons/fa6";
+import { FaClipboardList } from "react-icons/fa";
 
 import logo from "../assets/logo2.png";
 
@@ -37,6 +38,16 @@ const Sidebar = ({ handleClose }) => {
                 </NavLink>
               </li>
              
+              <li className="nav-item text-center">
+                <NavLink
+                  to="/pacientes/historial"
+                  className="nav-link text-light fw-bold btnSidebar py-3 d-flex justify-content-center align-items-center"
+                  onClick={handleClose}
+                >
+                  <FaClipboardList className="me-2" />
+                  Mi Historial Clínico
+                </NavLink>
+              </li>
               <li className="nav-item text-center">
                 <NavLink
                   to="/pacientes/solicitarTurno"

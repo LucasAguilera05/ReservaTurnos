@@ -45,14 +45,14 @@ const solicitarTurno = () => {
 
   const medicos = usuarios.filter((usuario) => usuario.rol === "Medico");
 
-  const especialidadesUnicas = [...new Set(medicos.map((u) => u.especialidad))];
+  const especialidadesUnicas = [...new Set(medicos.map((u) => u.medicoData?.especialidad).filter(Boolean))];
 
   const filtrarUsuarios = medicos.filter((usuario) => {
     const busquedaNormalizada = normalizarTexto(busqueda);
-    const nombreNormalizado = normalizarTexto(usuario.nombre);
-    const apellidoNormalizado = normalizarTexto(usuario.apellido);
+    const nombreNormalizado = normalizarTexto(usuario?.medicoData?.nombre || "");
+    const apellidoNormalizado = normalizarTexto(usuario?.medicoData?.apellido || "");
     const categoriaSeleccionada =
-      !tabSeleccionada || tabSeleccionada === usuario.especialidad;
+      !tabSeleccionada || tabSeleccionada === usuario.medicoData?.especialidad;
     const busquedaRealizada =
       nombreNormalizado.toLowerCase().includes(busquedaNormalizada) ||
       apellidoNormalizado.toLowerCase().includes(busquedaNormalizada);
@@ -111,8 +111,8 @@ const solicitarTurno = () => {
           ) : (
             usuariosActuales.map((usuario) => (
               <tr key={usuario.id}>
-                <td className="tableMaterias text-center">{usuario.apellido}</td>
-                <td className="tableMaterias text-center">{usuario.nombre}</td>
+                <td className="tableMaterias text-center">{usuario?.medicoData?.apellido}</td>
+                <td className="tableMaterias text-center">{usuario?.medicoData?.nombre}</td>
                 <td className="tableMaterias text-center">
                   <ModalSolicitar  usuario={usuario}>Buscar Turnos</ModalSolicitar>
                 </td>

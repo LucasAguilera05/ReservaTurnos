@@ -34,6 +34,14 @@ const Turno = sequelize.define('Turno', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  diagnostico: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  tratamiento: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
 }, {
   tableName: 'turnos', // Nombre explícito de la tabla
   timestamps: false, // Si necesitas `createdAt` y `updatedAt`

@@ -25,12 +25,12 @@ const PerfilAdmin = () => {
         <article className="perfil-card rounded py-2 mt-3 bg-azulOscuro text-light">
           <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
             <h6 className="me-1 my-0 fw-bold">DNI</h6>
-            <span className="ms-auto my-0">{usuario?.dni}</span>
+            <span className="ms-auto my-0">{usuario?.adminData?.dni}</span>
           </div>
           <hr className="my-1 mx-2" />
           <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
             <h6 className="me-1 my-0 fw-bold">Nombre Completo</h6>
-            <span className="ms-auto my-0">{usuario?.nombre} {usuario?.apellido}</span>
+            <span className="ms-auto my-0">{usuario?.adminData?.nombre} {usuario?.adminData?.apellido}</span>
           </div>
           <hr className="my-1 mx-2" />
           <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
@@ -41,13 +41,13 @@ const PerfilAdmin = () => {
           <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
             <h6 className="me-1 my-0 fw-bold">Dirección</h6>
             <span className="ms-auto my-0">
-              {usuario?.direccion}
+              {usuario?.adminData?.direccion}
             </span>
           </div>
           <hr className="my-1 mx-2" />
           <div className="d-flex justify-content-md-between align-items-center px-2 px-md-5 py-2">
             <h6 className="me-1 my-0 fw-bold">Número de Teléfono</h6>
-            <span className="ms-auto my-0">{usuario?.telefono}</span>
+            <span className="ms-auto my-0">{usuario?.adminData?.telefono}</span>
           </div>
           <hr className="my-1 mx-2" />
          

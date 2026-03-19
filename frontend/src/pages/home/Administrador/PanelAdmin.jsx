@@ -51,7 +51,9 @@ const AdminPanel = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const success = await createUsuario(values);
+      // Inject userType as rol so backend recognizes Medico/Paciente correctly
+      const payload = { ...values, rol: userType };
+      const success = await createUsuario(payload);
       if (success) {
         Swal.fire({
           title: `${userType} creado exitosamente`,
