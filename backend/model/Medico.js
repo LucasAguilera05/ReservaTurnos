@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/dataBase');
 
-const Paciente = sequelize.define('Paciente', {
+const Medico = sequelize.define('Medico', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -12,29 +12,13 @@ const Paciente = sequelize.define('Paciente', {
   apellido: { type: DataTypes.STRING, allowNull: true },
   telefono: { type: DataTypes.STRING, allowNull: true },
   direccion: { type: DataTypes.STRING, allowNull: true },
-  edad: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  peso: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-  altura: {
-    type: DataTypes.DECIMAL(11, 2),
-    allowNull: true,
-  },
-  sexo: {
+  especialidad: {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  historial: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
 }, {
-  tableName: 'pacientes',
+  tableName: 'medicos',
   timestamps: false,
 });
 
-module.exports = Paciente;
+module.exports = Medico;
