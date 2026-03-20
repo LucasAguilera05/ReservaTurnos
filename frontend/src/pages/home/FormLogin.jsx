@@ -289,6 +289,24 @@ const FormLogin = () => {
             )}
           </Formik>
 
+          <div className="demo-credentials">
+            <p className="demo-title">Usuarios de prueba:</p>
+            <div className="demo-users">
+              <div className="demo-user">
+                <span className="demo-role admin">Admin</span>
+                <span className="demo-email">admin@demo.com / admin123</span>
+              </div>
+              <div className="demo-user">
+                <span className="demo-role medico">Medico</span>
+                <span className="demo-email">medico@demo.com / medico123</span>
+              </div>
+              <div className="demo-user">
+                <span className="demo-role paciente">Paciente</span>
+                <span className="demo-email">paciente@demo.com / paciente123</span>
+              </div>
+            </div>
+          </div>
+
           <div className="login-footer">
             <p>Grupo 1 - Diseno de Sistemas 2024</p>
           </div>
