@@ -240,13 +240,17 @@
   color: var(--fuente-color-muted, #64748b);
 }
 
+.btn {
+  color: #ffffff38;
+}
+
 /* Create Turno Button */
 .btn-create-turno {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   background: linear-gradient(135deg, var(--color-primarioDos, #038587) 0%, var(--color-secundario, #015a95) 100%);
-  color: #fff;
+  color: #ffffff;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius-md, 10px);
@@ -405,17 +409,17 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .tabs-modern .nav-link {
     padding: 0.625rem 1rem;
     font-size: 0.85rem;
   }
-  
+
   .tabsRoles {
     flex-wrap: nowrap;
     overflow-x: auto;
   }
-  
+
   .tabsRoles .nav-link {
     white-space: nowrap;
     padding: 0.625rem 1rem;

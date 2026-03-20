@@ -32,7 +32,7 @@ const ModalInfo = ({ user }) => {
 
   return (
     <>
-      <button className="btn iconoVer text-light" onClick={handleShow}>
+      <button className=" iconoVer" onClick={handleShow}>
         <i className="bi bi-eye iconoVer"></i> Historial Clinico
       </button>
 
@@ -49,7 +49,7 @@ const ModalInfo = ({ user }) => {
               <Col xs={12} lg={4}>
                 <Card className="shadow-sm border-0 h-100" style={{ borderRadius: "15px", overflow: "hidden" }}>
                   <Card.Header className="bg-azulOscuro text-white py-3 border-0">
-                    <h5 className="mb-0 fw-bold"><FaUserMd className="me-2"/> Datos Generales del Paciente</h5>
+                    <h5 className="mb-0 fw-bold"><FaUserMd className="me-2" /> Datos Generales del Paciente</h5>
                   </Card.Header>
                   <Card.Body className="bg-white">
                     <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
@@ -90,7 +90,7 @@ const ModalInfo = ({ user }) => {
               <Col xs={12} lg={8}>
                 <Card className="shadow-sm border-0 h-100" style={{ borderRadius: "15px", overflow: "hidden" }}>
                   <Card.Header className="bg-azulOscuro text-white py-3 border-0">
-                    <h5 className="mb-0 fw-bold"><FaClipboardList className="me-2"/> Consultas y Evaluaciones Previas</h5>
+                    <h5 className="mb-0 fw-bold"><FaClipboardList className="me-2" /> Consultas y Evaluaciones Previas</h5>
                   </Card.Header>
                   <Card.Body className="bg-white p-md-4 p-3" style={{ maxHeight: "60vh", overflowY: "auto" }}>
                     {misTurnosCerrados.length === 0 ? (
@@ -106,7 +106,7 @@ const ModalInfo = ({ user }) => {
                             <Card.Body>
                               <div className="d-flex flex-wrap justify-content-between align-items-center mb-2">
                                 <h6 className="fw-bold mb-1 text-dark">
-                                  <FaCalendarAlt className="me-2 text-muted" /> 
+                                  <FaCalendarAlt className="me-2 text-muted" />
                                   {turno.fecha} - {turno.horario}
                                 </h6>
                                 <Badge bg="success" className="mb-1">Completado</Badge>
@@ -114,7 +114,7 @@ const ModalInfo = ({ user }) => {
                               <h6 className="text-secondary mb-3">
                                 <FaStethoscope className="me-1" /> Dr/a. {turno.medicoNombre} ({turno.medicoTipo})
                               </h6>
-                              
+
                               {(turno.diagnostico || turno.tratamiento) ? (
                                 <>
                                   {turno.diagnostico && (
@@ -123,7 +123,7 @@ const ModalInfo = ({ user }) => {
                                       <span className="text-muted">{turno.diagnostico}</span>
                                     </div>
                                   )}
-                                  
+
                                   {turno.tratamiento && (
                                     <div className="p-2 rounded bg-light border">
                                       <span className="fw-bold text-dark d-block mb-1">Tratamiento e Indicaciones:</span>
@@ -132,9 +132,9 @@ const ModalInfo = ({ user }) => {
                                   )}
                                 </>
                               ) : (
-                                 <div className="p-2 rounded bg-light border text-muted fst-italic">
-                                    No se registraron detalles adicionales para esta consulta.
-                                 </div>
+                                <div className="p-2 rounded bg-light border text-muted fst-italic">
+                                  No se registraron detalles adicionales para esta consulta.
+                                </div>
                               )}
                             </Card.Body>
                           </Card>
