@@ -1,13 +1,13 @@
 const Turno = require('../model/Turno');
 const Paciente = require('../model/Paciente');
-const Doctor = require('../model/Doctor');
+const Medico = require('../model/Medico');
 
 // Crear una nueva cita
 exports.crearTurno = async (req, res) => {
-  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado } = req.body;
+  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado, diagnostico, tratamiento } = req.body;
 
   try {
-    const nuevoTurno = await Turno.create({ fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado });
+    const nuevoTurno = await Turno.create({ fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado, diagnostico, tratamiento });
     res.status(201).json(nuevoTurno);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear la turno' });
@@ -33,7 +33,7 @@ exports.obtenerTurnos = async (req, res) => {
 // Actualizar una cita
 exports.actualizarTurno = async (req, res) => {
   const { id } = req.params;
-  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado } = req.body;
+  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado, diagnostico, tratamiento } = req.body;
 
   try {
     const turno = await Turno.findByPk(id);
@@ -47,6 +47,8 @@ exports.actualizarTurno = async (req, res) => {
     turno.pacienteId = pacienteId || turno.pacienteId;
     turno.pacienteNombre = pacienteNombre || turno.pacienteNombre;
     turno.estado = estado || turno.estado;
+    turno.diagnostico = diagnostico || turno.diagnostico;
+    turno.tratamiento = tratamiento || turno.tratamiento;
 
     await turno.save();
     res.status(200).json(turno);

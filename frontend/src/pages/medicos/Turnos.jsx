@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  NavbarBrand,
-  Pagination,
-  Table,
-} from "react-bootstrap";
+import { Button, Form, Nav, Pagination, Table } from "react-bootstrap";
 import useTurnosStore from "../../stores/Turnos-Store";
 import { MdDelete } from "react-icons/md";
+import { FaCalendarPlus, FaCalendarAlt, FaCalendarCheck, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import CrearTurno from "./ModalesTurnos/CrearTurno";
 import EditarTurno from "./ModalesTurnos/EditarTurno";
 import useAuth from "../../stores/Auth-Store";
 import useUsuarios from "../../stores/Usuarios-Store";
+import "./Medicos.css";
 
 const Turnos = () => {
   const usuarios = useUsuarios((state) => state.usuarios || []);
@@ -26,13 +20,11 @@ const Turnos = () => {
   }));
   const { turnos, obtenerTurnos, borrarTurno } = useTurnosStore();
   
-  const hoy = new Date(); // Obtiene la fecha actual
-
+  const hoy = new Date();
   const dia = String(hoy.getDate()).padStart(2, '0');
-  const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
+  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
   const anio = hoy.getFullYear();
   const fecha = `${anio}-${mes}-${dia}`;
-  console.log(fecha)
 
   const [tabSeleccionada, setTabSeleccionada] = useState(fecha);
   const [busqueda, setBusqueda] = useState("");
@@ -63,26 +55,26 @@ const Turnos = () => {
 
   const filtrarTurnos = turnos.filter((turno) => {
     const busquedaNormalizada = normalizarTexto(busqueda);
-    const fechaNormalizado = normalizarTexto(turno.fecha);
-    const horarioTipoNormalizado = normalizarTexto(turno.horario);
-    const categoriaSeleccionada = tabSeleccionada === "Hoy" || tabSeleccionada === turno.estado || tabSeleccionada === turno.fecha;
-    // const fechaSeleccionada = tabFechaSelecciona === turno.fecha;
+    const fechaNormalizada = normalizarTexto(turno.fecha);
+    const horarioNormalizado = normalizarTexto(turno.horario);
+    
     const busquedaRealizada =
-      fechaNormalizado.toLowerCase().includes(busquedaNormalizada) ||
+      fechaNormalizada.toLowerCase().includes(busquedaNormalizada) ||
       horarioNormalizado.toLowerCase().includes(busquedaNormalizada);
 
-    return categoriaSeleccionada && busquedaRealizada;
+    let categoriaSeleccionada = false;
+    if (tabSeleccionada === fecha) {
+      categoriaSeleccionada = (turno.fecha === fecha) && (turno.estado !== "Completado") && (turno.estado !== "Finalizado");
+    } else {
+      categoriaSeleccionada = (turno.estado === tabSeleccionada);
+    }
+
+    return categoriaSeleccionada && busquedaRealizada && turno.medicoId == user?.id;
   });
 
   const indiceUltimoTurno = paginaActual * turnosPorPagina;
-
   const indicePrimerTurno = indiceUltimoTurno - turnosPorPagina;
-
-  const turnosActuales = filtrarTurnos.slice(
-    indicePrimerTurno,
-    indiceUltimoTurno
-  );
-
+  const turnosActuales = filtrarTurnos.slice(indicePrimerTurno, indiceUltimoTurno);
   const totalPaginas = Math.ceil(filtrarTurnos.length / turnosPorPagina);
 
   const handlePaginacionClick = (numeroPagina) => {
@@ -91,154 +83,162 @@ const Turnos = () => {
 
   const eliminarTurno = (id) => {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No podrás revertir esto",
+      title: "Eliminar turno",
+      text: "Esta accion no se puede deshacer",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Si, eliminar",
       cancelButtonText: "Cancelar",
+      customClass: { popup: 'rounded-3' }
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           await borrarTurno(id);
-          Swal.fire("Eliminado", "El turno ha sido eliminado.", "success");
+          Swal.fire({
+            title: "Eliminado",
+            text: "El turno ha sido eliminado",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+            customClass: { popup: 'rounded-3' }
+          });
         } catch (error) {
-          Swal.fire(
-            "Error",
-            error.message || "No se pudo eliminar el turno.",
-            "error"
-          );
+          Swal.fire({
+            title: "Error",
+            text: error.message || "No se pudo eliminar el turno",
+            icon: "error",
+            customClass: { popup: 'rounded-3' }
+          });
         }
       }
     });
   };
 
-  return (
-    <Container className="text-center px-md-5 py-md-2">
-      <h2 className="my-5 disenoTitulo text-primary">Mis Turnos</h2>
+  const getStatusBadge = (estado) => {
+    const statusMap = {
+      'Ninguno': { class: 'disponible', label: 'Disponible' },
+      'Confirmado': { class: 'confirmado', label: 'Confirmado' },
+      'Completado': { class: 'completado', label: 'Completado' },
+      'Finalizado': { class: 'finalizado', label: 'Finalizado' },
+      'Cancelado': { class: 'cancelado', label: 'Cancelado' }
+    };
+    const status = statusMap[estado] || { class: 'disponible', label: estado };
+    return <span className={`turno-status ${status.class}`}>{status.label}</span>;
+  };
 
-      <div className="my-2 d-flex justify-content-start">
-        <CrearTurno></CrearTurno>
+  const tabs = [
+    { key: fecha, label: 'Hoy', icon: <FaCalendarAlt /> },
+    { key: 'Ninguno', label: 'Disponibles', icon: <FaClock /> },
+    { key: 'Confirmado', label: 'Confirmados', icon: <FaCalendarCheck /> },
+    { key: 'Finalizado', label: 'Finalizados', icon: <FaTimesCircle /> },
+    { key: 'Completado', label: 'Completados', icon: <FaCheckCircle /> },
+  ];
+
+  return (
+    <div className="page-container">
+      <div className="page-header d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div>
+          <h1 className="page-title">Mis Turnos</h1>
+          <p className="page-subtitle">Gestiona tu agenda de turnos medicos</p>
+        </div>
+        <CrearTurno />
       </div>
 
-      <Nav
-        variant="tabs"
-        defaultActiveKey="/home"
-        className="mt-4 mb-1 tabsRoles"
-        onSelect={(key) => handleTabSeleccionada(key)}
-      >
-      <Nav.Item>
-      </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey={fecha}
-            active={tabSeleccionada === fecha}
-          >
-            Hoy
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="Ninguno"
-            active={tabSeleccionada === "Ninguno"}
-          >
-            Disponibles
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="Confirmado"
-            active={tabSeleccionada === "Confirmado"}
-          >
-            Confirmados
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            eventKey="Finalizado"
-            active={tabSeleccionada === "Finalizado"}
-          >
-            Finalizados
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <div className="card-modern animate-fadeInUp">
+        <Nav className="tabs-modern mx-3 mt-3" onSelect={(key) => handleTabSeleccionada(key)}>
+          {tabs.map((tab) => (
+            <Nav.Item key={tab.key}>
+              <Nav.Link
+                eventKey={tab.key}
+                active={tabSeleccionada === tab.key}
+                className="d-flex align-items-center gap-2"
+              >
+                {tab.icon}
+                <span className="d-none d-md-inline">{tab.label}</span>
+              </Nav.Link>
+            </Nav.Item>
+          ))}
+        </Nav>
 
-      <Table striped hover responsive className="rounded">
-        <thead>
-          <tr>
-            <th className="tableMaterias fw-bold">Fecha</th>
-            <th className="tableMaterias fw-bold">Horario</th>
-            <th className="tableMaterias fw-bold">Estado</th>
-            <th className="tableMaterias fw-bold">Paciente</th>
-            <th className="tableMaterias fw-bold">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-        {turnosActuales.length === 0 ? (
+        <Table responsive className="users-table mb-0">
+          <thead>
             <tr>
-              <td colSpan="6" className="text-center">
-                Debe seleccionar una especialidad.
-              </td>
+              <th>Fecha</th>
+              <th>Horario</th>
+              <th>Estado</th>
+              <th>Paciente</th>
+              <th className="text-center">Acciones</th>
             </tr>
-          ) : (
-            turnosActuales.map((turno) => {
-              if (turno.medicoId == user?.id) {
-                return (
-                  <tr key={turno.id}>
-                    <td className="tableMaterias">{turno.fecha}</td>
-                    <td className="tableMaterias">{turno.horario}</td>
-                    <td className="tableMaterias">{turno.estado}</td>
-                    <td className="tableMaterias">{turno.pacienteNombre}</td>
-                    <td className="tableMaterias ">
-                      <div className="d-flex justify-content-center">
-                        <Button
-                          variant="outline-danger"
-                          className="m-1 d-flex justify-content-center align-items-center flex-column"
-                          onClick={() => eliminarTurno(turno.id)}
-                        >
-                          <MdDelete />
-                        </Button>
-                        <EditarTurno turno={turno}></EditarTurno>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              }
-            })
-          )}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {turnosActuales.length === 0 ? (
+              <tr>
+                <td colSpan="5">
+                  <div className="empty-state">
+                    <FaCalendarAlt className="empty-state-icon" />
+                    <h3 className="empty-state-title">No hay turnos</h3>
+                    <p className="empty-state-desc">No se encontraron turnos en esta categoria</p>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              turnosActuales.map((turno) => (
+                <tr key={turno.id}>
+                  <td className="fw-semibold">{turno.fecha}</td>
+                  <td>{turno.horario}</td>
+                  <td>{getStatusBadge(turno.estado)}</td>
+                  <td>{turno.pacienteNombre || '-'}</td>
+                  <td>
+                    <div className="d-flex justify-content-center gap-2">
+                      <button
+                        className="turno-action-btn delete"
+                        onClick={() => eliminarTurno(turno.id)}
+                        title="Eliminar turno"
+                      >
+                        <MdDelete />
+                      </button>
+                      <EditarTurno turno={turno} />
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </Table>
 
-      <Pagination className="justify-content-center mt-4">
-        <Pagination.First
-          onClick={() => handlePaginacionClick(1)}
-          disabled={paginaActual === 1}
-        />
-        <Pagination.Prev
-          onClick={() => handlePaginacionClick(paginaActual - 1)}
-          disabled={paginaActual === 1}
-        />
-        {[...Array(totalPaginas)].map((_, index) => (
-          <Pagination.Item
-            key={index + 1}
-            active={index + 1 === paginaActual}
-            onClick={() => handlePaginacionClick(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-        <Pagination.Next
-          onClick={() => handlePaginacionClick(paginaActual + 1)}
-          disabled={paginaActual === totalPaginas}
-        />
-        <Pagination.Last
-          onClick={() => handlePaginacionClick(totalPaginas)}
-          disabled={paginaActual === totalPaginas}
-        />
-      </Pagination>
-    </Container>
+        {totalPaginas > 1 && (
+          <Pagination className="pagination-modern mb-0">
+            <Pagination.First
+              onClick={() => handlePaginacionClick(1)}
+              disabled={paginaActual === 1}
+            />
+            <Pagination.Prev
+              onClick={() => handlePaginacionClick(paginaActual - 1)}
+              disabled={paginaActual === 1}
+            />
+            {[...Array(totalPaginas)].map((_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === paginaActual}
+                onClick={() => handlePaginacionClick(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+            <Pagination.Next
+              onClick={() => handlePaginacionClick(paginaActual + 1)}
+              disabled={paginaActual === totalPaginas}
+            />
+            <Pagination.Last
+              onClick={() => handlePaginacionClick(totalPaginas)}
+              disabled={paginaActual === totalPaginas}
+            />
+          </Pagination>
+        )}
+      </div>
+    </div>
   );
 };
 
