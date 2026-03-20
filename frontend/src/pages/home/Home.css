@@ -392,11 +392,84 @@
   letter-spacing: 0.05em;
 }
 
+/* Demo Credentials */
+.demo-credentials {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.demo-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.demo-users {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.demo-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.demo-user:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(4px);
+}
+
+.demo-role {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  min-width: 70px;
+  text-align: center;
+}
+
+.demo-role.admin {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.demo-role.medico {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.demo-role.paciente {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.demo-email {
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.8rem;
+  color: #374151;
+}
+
 /* Footer */
 .login-footer {
   text-align: center;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
   border-top: 1px solid #e5e7eb;
 }
 

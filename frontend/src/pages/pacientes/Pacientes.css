@@ -1,141 +1,440 @@
-:root {
-  --color-fondo: #071f40;
-  --color-primario: #f2f2f2;
-  --color-primarioDos: #038587;
-  --color-secundario: #015a95;
-  --color-secundarioDos: #04325b;
-  --fuente-color-primario: #ffffff;
-  --fuente-color-secundario: #000;
-  --fuente-color-secundarioDos: #bbb;
-  --btn-color: #071f40;
-  --btn-colorDos: #038587;
-  --fuente-principal: "Roboto", sans-serif;
-  --fuente-secundaria: "Rubik", sans-serif;
-  --fuente-tamanio-titulo: 2rem;
-  --fuente-tamanio-titulo-tablet: 2.5rem;
-  --fuente-tamanio-titulo-desktop: 3rem;
-  --fuente-tamanio-subtitulo: 1.5rem;
-  --fuente-tamanio-subtitulo-tablet: 2rem;
-  --fuente-tamanio-subtitulo-desktop: 2.5rem;
-  --fuente-tamanio-parrafo: 1rem;
-  --fuente-tamanio-parrafo-tablet: 1.15rem;
-  --fuente-tamanio-parrafo-desktop: 1.25rem;
+/* ===== PACIENTES PAGES STYLES ===== */
+
+/* Historial Timeline */
+.historial-timeline {
+  position: relative;
 }
 
-.bg-azulOscuro {
-  background-color: var(--color-fondo);
+.historial-card {
+  background: #fff;
+  border-radius: var(--border-radius-lg, 16px);
+  overflow: hidden;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--color-primarioDos, #038587);
+  transition: all 0.25s ease;
 }
+
+.historial-card:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
+}
+
+.historial-card-header {
+  background: linear-gradient(135deg, var(--color-fondo, #071f40) 0%, var(--color-fondo-light, #0a2a52) 100%);
+  padding: 1rem 1.25rem;
+  color: #fff;
+}
+
+.historial-card-body {
+  padding: 1.25rem;
+}
+
+/* Patient Data Card */
+.patient-data-card {
+  background: #fff;
+  border-radius: var(--border-radius-lg, 16px);
+  overflow: hidden;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  height: 100%;
+}
+
+.patient-data-header {
+  background: linear-gradient(135deg, var(--color-fondo, #071f40) 0%, var(--color-fondo-light, #0a2a52) 100%);
+  padding: 1.25rem;
+  color: #fff;
+}
+
+.patient-data-body {
+  padding: 1.25rem;
+  background: #f8fafc;
+}
+
+.patient-data-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.patient-data-item:last-child {
+  border-bottom: none;
+}
+
+.patient-data-label {
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+  font-size: 0.85rem;
+}
+
+.patient-data-value {
+  color: var(--fuente-color-muted, #64748b);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* Solicitar Turno */
+.especialidad-selector {
+  background: #fff;
+  border-radius: var(--border-radius-lg, 16px);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  margin-bottom: 1.5rem;
+}
+
+.especialidad-selector-title {
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.medico-card {
+  background: #fff;
+  border-radius: var(--border-radius-md, 10px);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.medico-card:hover {
+  border-color: var(--color-primarioDos, #038587);
+  background: rgba(3, 133, 135, 0.05);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+}
+
+.medico-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primarioDos, #038587) 0%, var(--color-secundario, #015a95) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.medico-info {
+  flex: 1;
+}
+
+.medico-name {
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+  font-size: 0.95rem;
+  margin-bottom: 0.125rem;
+}
+
+.medico-specialty {
+  font-size: 0.8rem;
+  color: var(--color-primarioDos, #038587);
+  font-weight: 500;
+}
+
+/* Mis Turnos Section */
+.mis-turnos-section {
+  background: #fff;
+  border-radius: var(--border-radius-lg, 16px);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
+  margin-top: 2rem;
+}
+
+.mis-turnos-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.mis-turnos-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fuente-color-secundario, #1e293b);
+  margin: 0;
+}
+
+.mis-turnos-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(3, 133, 135, 0.15);
+  color: var(--color-primarioDos, #038587);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+/* Turno Item */
+.turno-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: var(--border-radius-md, 10px);
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.turno-item:hover {
+  background: #f1f5f9;
+}
+
+.turno-date-badge {
+  width: 60px;
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--color-primarioDos, #038587) 0%, var(--color-secundario, #015a95) 100%);
+  border-radius: 10px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.turno-date-day {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.turno-date-month {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.turno-details {
+  flex: 1;
+}
+
+.turno-time {
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+  font-size: 0.95rem;
+}
+
+.turno-medico {
+  font-size: 0.85rem;
+  color: var(--fuente-color-muted, #64748b);
+}
+
+.turno-especialidad {
+  font-size: 0.8rem;
+  color: var(--color-primarioDos, #038587);
+  font-weight: 500;
+}
+
+/* Cancelar Button */
+.btn-cancelar-turno {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger, #ef4444);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm, 6px);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-cancelar-turno:hover {
+  background: var(--color-danger, #ef4444);
+  color: #fff;
+  border-color: var(--color-danger, #ef4444);
+}
+
+/* Modal Solicitar */
+.modal-solicitar .modal-content {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.modal-solicitar .modal-header {
+  background: linear-gradient(135deg, var(--color-fondo, #071f40) 0%, var(--color-fondo-light, #0a2a52) 100%);
+  color: #fff;
+  border: none;
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-solicitar .modal-header .btn-close {
+  filter: invert(1);
+  opacity: 0.7;
+}
+
+.modal-solicitar .modal-body {
+  padding: 1.5rem;
+}
+
+.turno-disponible {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background: #f8fafc;
+  border-radius: var(--border-radius-md, 10px);
+  margin-bottom: 0.5rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.turno-disponible:hover {
+  border-color: var(--color-primarioDos, #038587);
+  background: rgba(3, 133, 135, 0.05);
+}
+
+.turno-disponible-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.turno-disponible-fecha {
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+}
+
+.turno-disponible-hora {
+  color: var(--fuente-color-muted, #64748b);
+  font-size: 0.9rem;
+}
+
+.btn-reservar {
+  background: linear-gradient(135deg, var(--color-primarioDos, #038587) 0%, var(--color-secundario, #015a95) 100%);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm, 6px);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-reservar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(3, 133, 135, 0.3);
+  color: #fff;
+}
+
+/* Legacy Support */
+.bg-azulOscuro {
+  background-color: var(--color-fondo, #071f40);
+}
+
 .titulo {
-  font-family: var(--fuente-principal);
-  font-size: var(--fuente-tamanio-titulo);
-  color: var(--color-fondo);
+  font-family: var(--fuente-principal, 'Inter', sans-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-fondo, #071f40);
 }
 
 .avatarPerfil {
-  margin-top: 60px;
-  width: 150px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.2);
 }
 
 .perfil-card {
   width: 100%;
-  font-family: var(--fuente-principal);
-  font-size: 14px;
+  max-width: 500px;
+  font-family: var(--fuente-principal, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  border-radius: 16px;
 }
 
 .tableMaterias {
-  background-color: var(--color-fondo) !important;
-  color: var(--fuente-color-primario) !important;
+  background-color: transparent !important;
+  color: var(--fuente-color-secundario, #1e293b) !important;
 }
 
-.asistencias-container {
-  font-family: var(--fuente-principal);
-}
-
-.asistencia-card {
-  background-color: var(--color-fondo);
-  border: 1px solid var(--color-primario);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.inasistencias-fechas {
-  width: 100%;
-}
-.inasistencias-fechas .fechas-titulo {
-  font-size: 16px;
-  color: var(--color-primario);
-  margin-bottom: 20px;
-}
-
-.inasistencias-fechas ol {
-  text-align: left;
-}
-
-.inasistencias-fechas li {
-  font-size: 15px;
-  color: var(--color-primario);
-  margin-bottom: 8px;
-}
-
-.cardNovedad{
-  border: 1px solid var(--color-primario);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.488);
-  transition: transform 0.3s ease;
-}
-.imgNovedad {
-  width: 100%;
-  height: 400px;
-  border-radius: 5px;
-}
-
-@media (min-width: 767px) {
-  .avatarPerfil {
-    margin-top: 80px;
-    width: 200px;
-  }
-  .perfil-card {
-    width: 95%;
-    font-size: 16px;
-  }
-  .row-asistencias {
-    margin-top: 80px !important;
-  }
-  .asistencia-card:hover {
-    transform: scale(1.05);
-  }
-  .cardNovedad:hover{
-    transform: scale(1.05);
-  }
-}
-
-@media (min-width: 993px) {
-  .avatarPerfil {
-    margin-top: 0;
-    width: 130px;
-  }
-  .perfil-card {
-    width: 70%;
-  }
-  .imgNovedad {
-    height: 350px;
-  }
-  .cardNovedad:hover{
-    transform: scale(1.05);
-  }
-}
-
-.iconoEditar {
-  color: var(--color-primario);
-}
-
-.btnEditar {
-  background: var(--color-fondo) !important;
-  font-family: var(--fuente-secundaria);
-  font-weight: bold;
-  color: var(--color-primario) !important;
+.disenoTitulo {
+  color: var(--color-primarioDos, #038587);
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 
 .modalUsuario {
-  font-family: var(--fuente-principal);
+  font-family: var(--fuente-principal, 'Inter', sans-serif);
+}
+
+.iconoEditar {
+  color: var(--color-primarioDos, #038587);
+}
+
+.iconoEditar:hover {
+  color: var(--color-accent, #10b981);
+}
+
+.btnEditar {
+  background: var(--color-primarioDos, #038587) !important;
+  font-family: var(--fuente-principal, 'Inter', sans-serif);
+  font-weight: 600;
+  color: #fff !important;
+  border: none;
+  border-radius: var(--border-radius-md, 10px);
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.btnEditar:hover {
+  background: var(--color-secundario, #015a95) !important;
+  transform: translateY(-2px);
+}
+
+/* Empty States */
+.empty-state-historial {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.empty-state-historial-icon {
+  font-size: 4rem;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.empty-state-historial-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--fuente-color-secundario, #1e293b);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-historial-desc {
+  color: var(--fuente-color-muted, #94a3b8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .turno-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .turno-date-badge {
+    width: auto;
+    padding: 0.5rem 1rem;
+  }
+  
+  .turno-disponible {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+  
+  .turno-disponible-info {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 }
