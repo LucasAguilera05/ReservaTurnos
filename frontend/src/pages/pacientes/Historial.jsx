@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Badge } from "react-bootstrap";
-import { FaUserMd, FaCalendarAlt, FaStethoscope, FaClipboardList, FaNotesMedical } from "react-icons/fa";
+import { Row, Col, Card, Badge } from "react-bootstrap";
+import { FaUserMd, FaCalendarAlt, FaStethoscope, FaClipboardList, FaNotesMedical, FaWeight, FaRuler } from "react-icons/fa";
 import "./Pacientes.css";
 import useAuth from "../../stores/Auth-Store";
 import useUsuarios from "../../stores/Usuarios-Store";
@@ -31,120 +31,125 @@ const Historial = () => {
       const completados = turnos.filter(
         (t) => String(t.pacienteId) === String(user.id) && t.estado === "Completado"
       );
-      // Reverse to show latest first
       setMisTurnosCerrados(completados.reverse());
     }
   }, [turnos, user?.id]);
 
+  const patientData = [
+    { label: "Nombre", value: `${usuario?.pacienteData?.nombre || ""} ${usuario?.pacienteData?.apellido || ""}`.trim() },
+    { label: "DNI", value: usuario?.pacienteData?.dni },
+    { label: "Edad", value: usuario?.pacienteData?.edad ? `${usuario.pacienteData.edad} anos` : '-' },
+    { label: "Sexo", value: usuario?.pacienteData?.sexo },
+    { label: "Peso", value: usuario?.pacienteData?.peso ? `${usuario.pacienteData.peso} kg` : '-' },
+    { label: "Altura", value: usuario?.pacienteData?.altura ? `${usuario.pacienteData.altura} m` : '-' },
+  ];
+
   return (
-    <Container className="py-md-4 py-3">
-      <h2 className="mb-4 fw-bold text-center text-md-start" style={{ color: "var(--color-fondo)" }}>
-        <FaNotesMedical className="me-2 mb-1" />
-        Mi Historial Clínico
-      </h2>
+    <div className="page-container">
+      <div className="page-header">
+        <h1 className="page-title">
+          <FaNotesMedical className="me-2" />
+          Mi Historial Clinico
+        </h1>
+        <p className="page-subtitle">Revisa tu historial de consultas y tratamientos</p>
+      </div>
 
       <Row className="g-4">
-        {/* Datos Biométricos */}
+        {/* Datos del Paciente */}
         <Col xs={12} lg={4}>
-          <Card className="shadow-sm border-0 h-100" style={{ borderRadius: "15px", overflow: "hidden" }}>
-            <Card.Header className="bg-azulOscuro text-white py-3 border-0">
-              <h5 className="mb-0 fw-bold"><FaUserMd className="me-2"/> Datos Generales</h5>
-            </Card.Header>
-            <Card.Body className="bg-light">
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">Nombre</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.nombre} {usuario?.pacienteData?.apellido}</span>
-              </div>
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">DNI</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.dni}</span>
-              </div>
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">Edad</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.edad ? `${usuario.pacienteData.edad} años` : '-'}</span>
-              </div>
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">Sexo</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.sexo || '-'}</span>
-              </div>
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">Peso</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.peso ? `${usuario.pacienteData.peso} kg` : '-'}</span>
-              </div>
-              <div className="d-flex justify-content-between border-bottom pb-2 mb-2">
-                <span className="text-muted fw-bold">Altura</span>
-                <span className="fw-semibold text-end">{usuario?.pacienteData?.altura ? `${usuario.pacienteData.altura} m` : '-'}</span>
-              </div>
-              <div className="pt-2">
-                <span className="text-muted fw-bold d-block mb-1">Antecedentes / Notas Adicionales</span>
-                <p className="mb-0 bg-white p-2 rounded border" style={{ fontSize: "0.95rem" }}>
+          <div className="patient-data-card animate-fadeInUp">
+            <div className="patient-data-header">
+              <h5 className="mb-0 fw-bold d-flex align-items-center">
+                <FaUserMd className="me-2"/>
+                Mis Datos
+              </h5>
+            </div>
+            <div className="patient-data-body">
+              {patientData.map((item, index) => (
+                <div key={index} className="patient-data-item">
+                  <span className="patient-data-label">{item.label}</span>
+                  <span className="patient-data-value">{item.value || '-'}</span>
+                </div>
+              ))}
+              <div className="mt-3 pt-3 border-top">
+                <span className="patient-data-label d-block mb-2">Antecedentes / Notas</span>
+                <p className="mb-0 bg-white p-3 rounded border" style={{ fontSize: "0.9rem", color: '#64748b' }}>
                   {usuario?.pacienteData?.historial || 'Sin antecedentes registrados.'}
                 </p>
               </div>
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
         </Col>
 
-        {/* Historial de Turnos */}
+        {/* Historial de Consultas */}
         <Col xs={12} lg={8}>
-          <Card className="shadow-sm border-0 h-100" style={{ borderRadius: "15px", overflow: "hidden" }}>
-            <Card.Header className="bg-azulOscuro text-white py-3 border-0">
-              <h5 className="mb-0 fw-bold"><FaClipboardList className="me-2"/> Consultas y Evaluaciones</h5>
-            </Card.Header>
-            <Card.Body className="bg-light p-md-4 p-3">
+          <div className="card-modern animate-fadeInUp animate-delay-1" style={{ height: '100%' }}>
+            <div className="p-4 border-bottom" style={{ background: 'linear-gradient(135deg, var(--color-fondo) 0%, var(--color-fondo-light) 100%)' }}>
+              <h5 className="mb-0 fw-bold text-white d-flex align-items-center">
+                <FaClipboardList className="me-2"/>
+                Consultas y Evaluaciones
+              </h5>
+            </div>
+            <div className="p-4" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
               {misTurnosCerrados.length === 0 ? (
-                <div className="text-center text-muted py-5">
-                  <FaNotesMedical size={50} className="mb-3 opacity-50" />
-                  <h5>No hay consultas previas</h5>
-                  <p>Cuando el médico complete un turno, su diagnóstico y tratamiento aparecerán aquí.</p>
+                <div className="empty-state-historial">
+                  <FaNotesMedical className="empty-state-historial-icon" />
+                  <h3 className="empty-state-historial-title">No hay consultas previas</h3>
+                  <p className="empty-state-historial-desc">
+                    Cuando el medico complete un turno, su diagnostico y tratamiento apareceran aqui.
+                  </p>
                 </div>
               ) : (
-                <div className="timeline">
+                <div className="historial-timeline">
                   {misTurnosCerrados.map((turno) => (
-                    <Card key={turno.id} className="mb-3 border-0 shadow-sm timeline-card" style={{ borderLeft: "5px solid var(--color-primarioDos)" }}>
-                      <Card.Body>
+                    <div key={turno.id} className="historial-card">
+                      <div className="p-3">
                         <div className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                          <h6 className="fw-bold mb-1 text-dark">
-                            <FaCalendarAlt className="me-2 text-muted" /> 
+                          <h6 className="fw-bold mb-1" style={{ color: 'var(--fuente-color-secundario)' }}>
+                            <FaCalendarAlt className="me-2" style={{ color: '#94a3b8' }} />
                             {turno.fecha} - {turno.horario}
                           </h6>
                           <Badge bg="success" className="mb-1">Completado</Badge>
                         </div>
-                        <h6 className="text-secondary mb-3">
+                        <h6 className="mb-3" style={{ color: 'var(--color-primarioDos)' }}>
                           <FaStethoscope className="me-1" /> Dr/a. {turno.medicoNombre} ({turno.medicoTipo})
                         </h6>
                         
                         {(turno.diagnostico || turno.tratamiento) ? (
                           <>
                             {turno.diagnostico && (
-                              <div className="mb-2 p-2 rounded bg-white border">
-                                <span className="fw-bold text-dark d-block mb-1">Diagnóstico:</span>
-                                <span className="text-muted">{turno.diagnostico}</span>
+                              <div className="mb-2 p-3 rounded" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                                <span className="fw-bold d-block mb-1" style={{ color: 'var(--fuente-color-secundario)', fontSize: '0.85rem' }}>
+                                  Diagnostico:
+                                </span>
+                                <span style={{ color: '#64748b' }}>{turno.diagnostico}</span>
                               </div>
                             )}
                             
                             {turno.tratamiento && (
-                              <div className="p-2 rounded bg-white border">
-                                <span className="fw-bold text-dark d-block mb-1">Tratamiento e Indicaciones:</span>
-                                <span className="text-muted">{turno.tratamiento}</span>
+                              <div className="p-3 rounded" style={{ background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+                                <span className="fw-bold d-block mb-1" style={{ color: 'var(--fuente-color-secundario)', fontSize: '0.85rem' }}>
+                                  Tratamiento e Indicaciones:
+                                </span>
+                                <span style={{ color: '#64748b' }}>{turno.tratamiento}</span>
                               </div>
                             )}
                           </>
                         ) : (
-                           <div className="p-2 rounded bg-white border text-muted fst-italic">
-                              El médico no registró detalles adicionales para esta consulta.
-                           </div>
+                          <div className="p-3 rounded fst-italic" style={{ background: '#f8fafc', border: '1px solid #e2e8f0', color: '#94a3b8' }}>
+                            El medico no registro detalles adicionales para esta consulta.
+                          </div>
                         )}
-                      </Card.Body>
-                    </Card>
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
-            </Card.Body>
-          </Card>
+            </div>
+          </div>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 
