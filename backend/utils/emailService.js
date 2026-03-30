@@ -1,8 +1,4 @@
 const nodemailer = require('nodemailer');
-const dns = require('dns');
-
-// Solución al problema de 'ENETUNREACH' en Node 18+ que intenta usar IPv6
-dns.setDefaultResultOrder('ipv4first');
 
 // Configuración del Transporter para enviar correos.
 // Toma las credenciales desde las variables de entorno.
