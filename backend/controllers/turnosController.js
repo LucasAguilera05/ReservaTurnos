@@ -1,6 +1,8 @@
 const Turno = require('../model/Turno');
 const Paciente = require('../model/Paciente');
 const Medico = require('../model/Medico');
+const Usuario = require('../model/Usuario');
+const emailService = require('../utils/emailService');
 
 // Crear una nueva cita
 exports.crearTurno = async (req, res) => {
@@ -39,6 +41,8 @@ exports.actualizarTurno = async (req, res) => {
     const turno = await Turno.findByPk(id);
     if (!turno) return res.status(404).json({ error: 'Turno no encontrado' });
 
+    const estadoAntiguo = turno.estado;
+
     turno.fecha = fecha || turno.fecha;
     turno.horario = horario || turno.horario;
     turno.medicoId = medicoId || turno.medicoId;
@@ -51,6 +55,24 @@ exports.actualizarTurno = async (req, res) => {
     turno.tratamiento = tratamiento || turno.tratamiento;
 
     await turno.save();
+
+    // Notificaciones por Email
+    try {
+      if (estadoAntiguo !== turno.estado && turno.pacienteId && turno.pacienteId !== 'Ninguno') {
+        const usuarioPaciente = await Usuario.findByPk(turno.pacienteId);
+        if (usuarioPaciente && usuarioPaciente.email) {
+          if (turno.estado === 'Confirmado') {
+            await emailService.enviarEmailTurnoSolicitado(usuarioPaciente.email, turno);
+          } else if (turno.estado === 'Cancelado') {
+            await emailService.enviarEmailTurnoCancelado(usuarioPaciente.email, turno);
+          }
+        }
+      }
+    } catch (emailError) {
+      console.error('Error al intentar enviar la notificación por correo:', emailError);
+      // No bloqueamos la respuesta exitosa del turno si falla el correo
+    }
+
     res.status(200).json(turno);
   } catch (error) {
     res.status(500).json({ error: 'Error al actualizar la turno' });

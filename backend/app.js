@@ -5,6 +5,8 @@ require('dotenv').config();
 
 // Importar rutas
 const usuariosRoutes = require('./routes/usuariosRoutes');
+const pacientesRoutes = require('./routes/pacientesRoutes');
+const doctoresRoutes = require('./routes/doctoresRoutes');
 const turnosRoutes = require('./routes/turnosRoutes');
 
 // Inicializar la app
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/pacientes', pacientesRoutes);
+app.use('/api/doctores', doctoresRoutes);
 app.use('/api/turnos', turnosRoutes);
 
 // Ruta de prueba
