@@ -16,7 +16,8 @@ const transporter = nodemailer.createTransport({
   },
   tls: {
     rejectUnauthorized: false
-  }
+  },
+  family: 4 // Forza a Node.js a usar IPv4 en lugar de IPv6 al conectarse
 });
 
 /**
