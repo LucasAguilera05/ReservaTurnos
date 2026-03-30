@@ -76,6 +76,11 @@ const CrearTurno = (medico) => {
 
       const nuevoTurno = {
         ...values,
+        medicoId: String(user?.id || ''),
+        medicoNombre: usuario?.medicoData 
+          ? `${usuario.medicoData.nombre} ${usuario.medicoData.apellido}`.trim() 
+          : 'Médico',
+        medicoTipo: usuario?.medicoData?.especialidad || 'General'
       };
 
       await crearTurno(nuevoTurno);

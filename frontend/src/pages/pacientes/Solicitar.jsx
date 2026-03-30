@@ -8,7 +8,8 @@ import useUsuarios from "../../stores/Usuarios-Store";
 
 const Solicitar = ({ turno }) => {
   const { user } = useAuth((state) => ({ user: state.user }));
-  const { getUsuarioById } = useUsuarios((state) => ({
+  const { usuario, getUsuarioById } = useUsuarios((state) => ({
+    usuario: state.usuario,
     getUsuarioById: state.getUsuarioById,
   }));
 
@@ -25,10 +26,14 @@ const Solicitar = ({ turno }) => {
   const { actualizarTurno } = useTurnosStore();
 
   const handleConfirm = async () => {
+    const pacienteNombre = usuario?.pacienteData 
+      ? `${usuario.pacienteData.nombre || ''} ${usuario.pacienteData.apellido || ''}`.trim() 
+      : 'Paciente';
+
     const turnoEditado = {
       ...turno,
       pacienteId: user.id,
-      pacienteNombre: `${user.nombre} ${user.apellido}`,
+      pacienteNombre: pacienteNombre,
       estado: "Confirmado",
     };
 

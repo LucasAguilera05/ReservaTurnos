@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import useAuth from "../stores/Auth-Store";
 import PerfilAdmin from "../pages/home/Administrador/PerfilAdmin";
 import AdminUsuarios from "../pages/home/Administrador/AdminUsuarios";
+import EditarUsuario from "../pages/home/Administrador/EditarUsuario";
 
 
 const RutasAdmin = () => {
@@ -51,6 +52,7 @@ const RutasAdmin = () => {
           <Route path="/" element={<PanelAdmin />} />
           <Route path="/Perfil" element={<PerfilAdmin />} />
           <Route path="/Usuarios" element={<AdminUsuarios />} />
+          <Route path="/EditarUsuario/:id" element={<EditarUsuario />} />
 
         </Routes>
       </div>

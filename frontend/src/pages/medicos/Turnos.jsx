@@ -64,7 +64,7 @@ const Turnos = () => {
 
     let categoriaSeleccionada = false;
     if (tabSeleccionada === fecha) {
-      categoriaSeleccionada = (turno.fecha === fecha) && (turno.estado !== "Completado") && (turno.estado !== "Finalizado");
+      categoriaSeleccionada = (turno.fecha === fecha) && (turno.estado !== "Completado");
     } else {
       categoriaSeleccionada = (turno.estado === tabSeleccionada);
     }
@@ -121,7 +121,6 @@ const Turnos = () => {
       'Ninguno': { class: 'disponible', label: 'Disponible' },
       'Confirmado': { class: 'confirmado', label: 'Confirmado' },
       'Completado': { class: 'completado', label: 'Completado' },
-      'Finalizado': { class: 'finalizado', label: 'Finalizado' },
       'Cancelado': { class: 'cancelado', label: 'Cancelado' }
     };
     const status = statusMap[estado] || { class: 'disponible', label: estado };
@@ -132,7 +131,6 @@ const Turnos = () => {
     { key: fecha, label: 'Hoy', icon: <FaCalendarAlt /> },
     { key: 'Ninguno', label: 'Disponibles', icon: <FaClock /> },
     { key: 'Confirmado', label: 'Confirmados', icon: <FaCalendarCheck /> },
-    { key: 'Finalizado', label: 'Finalizados', icon: <FaTimesCircle /> },
     { key: 'Completado', label: 'Completados', icon: <FaCheckCircle /> },
   ];
 

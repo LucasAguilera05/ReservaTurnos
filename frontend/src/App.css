@@ -68,7 +68,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 80%, rgba(3, 133, 135, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(1, 90, 149, 0.1) 0%, transparent 50%);
   pointer-events: none;
@@ -485,7 +485,6 @@ body {
 
 .table-modern thead {
   background: linear-gradient(135deg, var(--color-fondo) 0%, var(--color-fondo-light) 100%);
-  color: #fff;
 }
 
 .table-modern thead th {
@@ -589,6 +588,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -599,10 +599,21 @@ body {
   animation: fadeInUp 0.5s ease forwards;
 }
 
-.animate-delay-1 { animation-delay: 0.1s; }
-.animate-delay-2 { animation-delay: 0.2s; }
-.animate-delay-3 { animation-delay: 0.3s; }
-.animate-delay-4 { animation-delay: 0.4s; }
+.animate-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-4 {
+  animation-delay: 0.4s;
+}
 
 /* Legacy support */
 .imgAvatarHeader {

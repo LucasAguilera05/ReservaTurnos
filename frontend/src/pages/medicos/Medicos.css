@@ -240,10 +240,6 @@
   color: var(--fuente-color-muted, #64748b);
 }
 
-.btn {
-  color: #ffffff38;
-}
-
 /* Create Turno Button */
 .btn-create-turno {
   display: inline-flex;

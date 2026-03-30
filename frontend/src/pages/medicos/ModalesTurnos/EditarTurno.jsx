@@ -134,7 +134,6 @@ const EditarTurno = ({ turno }) => {
                   <option value="Ninguno">Ninguno</option>
                   <option value="Confirmado">Confirmado</option>
                   <option value="Completado">Completado</option>
-                  <option value="Finalizado">Finalizado</option>
                 </Field>
                 <ErrorMessage
                   name="estado"

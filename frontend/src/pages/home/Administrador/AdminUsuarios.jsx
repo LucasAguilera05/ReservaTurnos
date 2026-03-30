@@ -84,7 +84,7 @@ const AdminUsers = () => {
   };
 
   const handleModificarUsuario = (idUsuario) => {
-    navigate(`/admin/editar-usuario/${idUsuario}`);
+    navigate(`/Administrador/PanelAdmin/EditarUsuario/${idUsuario}`);
   };
 
   const handleEliminarUsuario = (idUsuario) => {
