@@ -1,3 +1,7 @@
+const dns = require('dns');
+// Solución global para forzar IPv4 y evitar el error ENETUNREACH de IPv6
+dns.setDefaultResultOrder('ipv4first');
+
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/dataBase');
