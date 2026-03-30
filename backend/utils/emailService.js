@@ -3,11 +3,16 @@ const nodemailer = require('nodemailer');
 // Configuración del Transporter para enviar correos.
 // Toma las credenciales desde las variables de entorno.
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // Puedes cambiar 'gmail' por el servicio SMTP que uses
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // true para port 465, false para 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  tls: {
+    rejectUnauthorized: false
+  }
 });
 
 /**
