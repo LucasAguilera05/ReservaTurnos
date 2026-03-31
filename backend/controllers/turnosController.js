@@ -35,21 +35,23 @@ exports.obtenerTurnos = async (req, res) => {
 // Actualizar una cita
 exports.actualizarTurno = async (req, res) => {
   const { id } = req.params;
-  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado, diagnostico, tratamiento } = req.body;
+  const { fecha, horario, medicoId, medicoNombre, medicoTipo, pacienteId, pacienteNombre, estado, diagnostico, tratamiento, canceladoPor } = req.body;
 
   try {
     const turno = await Turno.findByPk(id);
     if (!turno) return res.status(404).json({ error: 'Turno no encontrado' });
 
     const estadoAntiguo = turno.estado;
+    const pacienteIdAntiguo = turno.pacienteId;
+    const medicoIdAntiguo = turno.medicoId;
 
     turno.fecha = fecha || turno.fecha;
     turno.horario = horario || turno.horario;
     turno.medicoId = medicoId || turno.medicoId;
     turno.medicoNombre = medicoNombre || turno.medicoNombre;
     turno.medicoTipo = medicoTipo || turno.medicoTipo;
-    turno.pacienteId = pacienteId || turno.pacienteId;
-    turno.pacienteNombre = pacienteNombre || turno.pacienteNombre;
+    turno.pacienteId = pacienteId !== undefined ? pacienteId : turno.pacienteId;
+    turno.pacienteNombre = pacienteNombre !== undefined ? pacienteNombre : turno.pacienteNombre;
     turno.estado = estado || turno.estado;
     turno.diagnostico = diagnostico || turno.diagnostico;
     turno.tratamiento = tratamiento || turno.tratamiento;
@@ -58,13 +60,33 @@ exports.actualizarTurno = async (req, res) => {
 
     // Notificaciones por Email
     try {
-      if (estadoAntiguo !== turno.estado && turno.pacienteId && turno.pacienteId !== 'Ninguno') {
-        const usuarioPaciente = await Usuario.findByPk(turno.pacienteId);
-        if (usuarioPaciente && usuarioPaciente.email) {
-          if (turno.estado === 'Confirmado') {
+      const huboCAmbioEstado = estadoAntiguo !== turno.estado;
+
+      if (huboCAmbioEstado) {
+        // 1. Paciente confirmó un turno → se notifica al paciente
+        if (turno.estado === 'Confirmado' && turno.pacienteId && turno.pacienteId !== 'Ninguno') {
+          const usuarioPaciente = await Usuario.findByPk(turno.pacienteId);
+          if (usuarioPaciente?.email) {
             await emailService.enviarEmailTurnoSolicitado(usuarioPaciente.email, turno);
-          } else if (turno.estado === 'Cancelado') {
-            await emailService.enviarEmailTurnoCancelado(usuarioPaciente.email, turno);
+          }
+        }
+
+        // 2. Médico canceló el turno → se notifica al paciente
+        if (turno.estado === 'Cancelado' && canceladoPor === 'medico' && pacienteIdAntiguo && pacienteIdAntiguo !== 'Ninguno') {
+          const usuarioPaciente = await Usuario.findByPk(pacienteIdAntiguo);
+          if (usuarioPaciente?.email) {
+            await emailService.enviarEmailCancelacionPorMedico(usuarioPaciente.email, turno);
+          }
+        }
+
+        // 3. Paciente canceló el turno (estado vuelve a "Ninguno") → se notifica al médico
+        if ((turno.estado === 'Ninguno' || turno.estado === 'Cancelado') && canceladoPor === 'paciente' && medicoIdAntiguo) {
+          const usuarioMedico = await Usuario.findByPk(medicoIdAntiguo);
+          if (usuarioMedico?.email) {
+            await emailService.enviarEmailCancelacionPorPaciente(usuarioMedico.email, {
+              ...turno.dataValues,
+              pacienteNombre: turno.pacienteNombre || pacienteNombre
+            });
           }
         }
       }

@@ -52,8 +52,9 @@ const Cancelar = ({ turno }) => {
     const turnoEditado = {
       ...turno,
       pacienteId: "Ninguno",
-      pacienteNombre: "Ninguno",
+      pacienteNombre: turno.pacienteNombre, // guardamos el nombre para el email al médico
       estado: "Ninguno",
+      canceladoPor: "paciente",
     };
 
     try {

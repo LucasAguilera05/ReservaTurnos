@@ -97,7 +97,61 @@ const enviarEmailTurnoCancelado = async (emailDestino, datosTurno) => {
   return await enviarCorreoBrevo(emailDestino, '❌ Turno Cancelado', html);
 };
 
+/**
+ * Notifica al PACIENTE que el MÉDICO canceló su turno.
+ */
+const enviarEmailCancelacionPorMedico = async (emailPaciente, datosTurno) => {
+  const { fecha, horario, medicoNombre } = datosTurno;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
+      <h2 style="color: #dc3545; border-bottom: 2px solid #dc3545; padding-bottom: 10px;">Turno Cancelado por el Médico</h2>
+      <p>Hola,</p>
+      <p>Lamentamos informarte que el médico ha cancelado tu turno programado.</p>
+      <div style="background-color: #fff3f3; padding: 15px; border-left: 5px solid #dc3545; border-radius: 5px; margin: 15px 0;">
+        <p><strong>📅 Fecha:</strong> ${fecha}</p>
+        <p><strong>⏰ Horario:</strong> ${horario} hs</p>
+        <p><strong>👨‍⚕️ Médico:</strong> Dr/a. ${medicoNombre}</p>
+      </div>
+      <p>Te invitamos a ingresar al sistema para solicitar un nuevo turno disponible.</p>
+      <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">
+        Este es un correo generado automáticamente. Por favor, no respondas a este mensaje.
+      </p>
+    </div>
+  `;
+
+  return await enviarCorreoBrevo(emailPaciente, '❌ Tu turno fue cancelado por el médico', html);
+};
+
+/**
+ * Notifica al MÉDICO que el PACIENTE canceló el turno.
+ */
+const enviarEmailCancelacionPorPaciente = async (emailMedico, datosTurno) => {
+  const { fecha, horario, pacienteNombre } = datosTurno;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;">
+      <h2 style="color: #f97316; border-bottom: 2px solid #f97316; padding-bottom: 10px;">Cancelación de Turno por Paciente</h2>
+      <p>Estimado/a Doctor/a,</p>
+      <p>Le informamos que el paciente ha cancelado su turno.</p>
+      <div style="background-color: #fff7ed; padding: 15px; border-left: 5px solid #f97316; border-radius: 5px; margin: 15px 0;">
+        <p><strong>📅 Fecha:</strong> ${fecha}</p>
+        <p><strong>⏰ Horario:</strong> ${horario} hs</p>
+        <p><strong>👤 Paciente:</strong> ${pacienteNombre}</p>
+      </div>
+      <p>El turno quedó disponible nuevamente en el sistema.</p>
+      <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">
+        Este es un correo generado automáticamente. Por favor, no respondas a este mensaje.
+      </p>
+    </div>
+  `;
+
+  return await enviarCorreoBrevo(emailMedico, '⚠️ Un paciente canceló su turno', html);
+};
+
 module.exports = {
   enviarEmailTurnoSolicitado,
   enviarEmailTurnoCancelado,
+  enviarEmailCancelacionPorMedico,
+  enviarEmailCancelacionPorPaciente,
 };

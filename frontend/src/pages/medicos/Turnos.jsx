@@ -6,6 +6,7 @@ import { FaCalendarPlus, FaCalendarAlt, FaCalendarCheck, FaClock, FaCheckCircle,
 import Swal from "sweetalert2";
 import CrearTurno from "./ModalesTurnos/CrearTurno";
 import EditarTurno from "./ModalesTurnos/EditarTurno";
+import CancelarMedico from "./ModalesTurnos/CancelarMedico";
 import useAuth from "../../stores/Auth-Store";
 import useUsuarios from "../../stores/Usuarios-Store";
 import "./Medicos.css";
@@ -198,6 +199,9 @@ const Turnos = () => {
                         <MdDelete />
                       </button>
                       <EditarTurno turno={turno} />
+                      {turno.estado === 'Confirmado' && (
+                        <CancelarMedico turno={turno} />
+                      )}
                     </div>
                   </td>
                 </tr>
