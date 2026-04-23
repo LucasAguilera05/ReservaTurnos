@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./config/dataBase');
 require('dotenv').config();
+const { iniciarJobRecordatorios } = require('./utils/recordatorioService');
 
 // Importar rutas
 const usuariosRoutes = require('./routes/usuariosRoutes');
@@ -31,6 +32,7 @@ sequelize.sync({ force: false }).then(() => {
   console.log('Base de datos sincronizada');
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
+    iniciarJobRecordatorios(); // Iniciar job de recordatorios automáticos
   });
 }).catch((error) => {
   console.error('Error al sincronizar la base de datos:', error);
